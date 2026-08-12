@@ -1,7 +1,63 @@
 ---
-import SectionTitle from "../ui/SectionTitle.astro";
+import { whyApside } from "../../content/sections/why-apside";
+import Button from "../ui/Button.astro";
+import Blob from "../ui/Blob.astro";
+import DecorativeCircle from "../ui/DecorativeCircle.astro";
+import Wave from "../ui/Wave.astro";
 ---
 
-<section id="por-que-apside" class="scroll-mt-24">
-	<SectionTitle title="¿Por qué Apside?" align="left" class="px-gutter" />
+<section
+	id="por-que-apside"
+	class="relative scroll-mt-24 overflow-hidden bg-soft"
+>
+	<Blob
+		color="primary"
+		size={380}
+		position="absolute -right-24 top-1/2 -z-10"
+		class="opacity-15"
+	/>
+	<DecorativeCircle
+		color="secondary"
+		size={120}
+		ring
+		position="absolute left-[6%] top-[10%] -z-10"
+	/>
+
+	<div
+		class="mx-auto grid w-full max-w-content grid-cols-1 items-center gap-16 px-gutter pb-section pt-section md:grid-cols-[1.2fr_1fr]"
+	>
+		<div class="flex flex-col items-start gap-6">
+			<p
+				class="font-sans text-small font-semibold uppercase tracking-widest text-primary"
+			>
+				{whyApside.eyebrow}
+			</p>
+			<h2 class="font-display text-h2 text-ink">{whyApside.title}</h2>
+			<p class="max-w-xl text-body text-ink/80">{whyApside.description}</p>
+			<ul class="flex flex-col gap-3">
+				{
+					whyApside.highlights.map((item) => (
+						<li class="flex items-center gap-3">
+							<span
+								class="inline-block size-2 shrink-0 rounded-full bg-secondary"
+								aria-hidden="true"
+							></span>
+							<span class="text-body font-medium text-ink">{item}</span>
+						</li>
+					))
+				}
+			</ul>
+			<Button href={whyApside.cta.href}>{whyApside.cta.label}</Button>
+		</div>
+
+		<div
+			class="relative flex aspect-square w-full max-w-md items-center justify-center justify-self-center rounded-card border-2 border-dashed border-primary/30 bg-white/60"
+			role="img"
+			aria-label="Espacio reservado para la ilustración 3D"
+		>
+			<p class="text-small text-ink/40">Ilustración 3D pendiente</p>
+		</div>
+	</div>
+
+	<Wave color="white" class="absolute inset-x-0 bottom-0" />
 </section>

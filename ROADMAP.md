@@ -31,9 +31,9 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Ondas de transición hacia la siguiente sección
 
 ## PHASE 4 — Why Apside
-- [ ] Contenido en `src/content/sections/why-apside.ts`
-- [ ] Layout texto + ilustración 3D flotando
-- [ ] Blobs decorativos detrás de la ilustración
+- [x] Contenido en `src/content/sections/why-apside.ts`
+- [x] Layout texto + ilustración 3D flotando
+- [x] Blobs decorativos detrás de la ilustración
 
 ## PHASE 5 — Team
 - [ ] Entradas de colección `team/` (Jeremías Bustos, Gerónimo Lombardo)
