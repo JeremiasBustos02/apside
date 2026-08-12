@@ -1,11 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/layout/Navbar.astro";
+import Footer from "../components/layout/Footer.astro";
+import Hero from "../components/sections/Hero.astro";
+import WhyApside from "../components/sections/WhyApside.astro";
+import Team from "../components/sections/Team.astro";
+import Clients from "../components/sections/Clients.astro";
+import Process from "../components/sections/Process.astro";
+import WhyChooseUs from "../components/sections/WhyChooseUs.astro";
+import Services from "../components/sections/Services.astro";
+import Faq from "../components/sections/Faq.astro";
+import Contact from "../components/sections/Contact.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="Apside — Agencia de desarrollo"
+	description="Tu visión, nuestra misión. Creamos sitios y productos digitales con diseño claro, proceso honesto y resultados que se sienten bien."
+>
+	<Navbar />
+	<main>
+		<Hero />
+		<WhyApside />
+		<Team />
+		<Clients />
+		<Process />
+		<WhyChooseUs />
+		<Services />
+		<Faq />
+		<Contact />
+	</main>
+	<Footer />
 </Layout>

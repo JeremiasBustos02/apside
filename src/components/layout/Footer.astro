@@ -1,0 +1,118 @@
+---
+const navColumns = {
+	explora: [
+		{ label: "Servicios", href: "#servicios" },
+		{ label: "Proceso", href: "#proceso" },
+		{ label: "Equipo", href: "#equipo" },
+		{ label: "Contacto", href: "#contacto" },
+	],
+	compania: [
+		{ label: "Sobre Apside", href: "#por-que-apside" },
+		{ label: "Clientes", href: "#clientes" },
+		{ label: "FAQ", href: "#faq" },
+	],
+};
+
+const socialLinks = [
+	{
+		label: "LinkedIn",
+		href: "https://www.linkedin.com",
+	},
+	{
+		label: "Instagram",
+		href: "https://www.instagram.com",
+	},
+	{
+		label: "GitHub",
+		href: "https://www.github.com",
+	},
+];
+---
+
+<footer
+	role="contentinfo"
+	aria-label="Pie de página"
+	class="bg-ink text-white"
+>
+	<div class="mx-auto max-w-content px-gutter py-section">
+		<div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+			<div class="flex flex-col gap-4">
+				<p class="font-display text-h3">Apside</p>
+				<p class="text-small text-white/70">
+					Una agencia de desarrollo con ideas claras, proceso honesto y diseños
+					que se sienten bien.
+				</p>
+			</div>
+
+			<nav aria-label="Explorar">
+				<h3 class="mb-4 text-small font-semibold uppercase tracking-widest text-secondary">
+					Explorar
+				</h3>
+				<ul class="flex flex-col gap-3">
+					{navColumns.explora.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="text-small text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+							>
+								{link.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+
+			<nav aria-label="Compañía">
+				<h3 class="mb-4 text-small font-semibold uppercase tracking-widest text-secondary">
+					Compañía
+				</h3>
+				<ul class="flex flex-col gap-3">
+					{navColumns.compania.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="text-small text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+							>
+								{link.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+
+			<div class="flex flex-col gap-4">
+				<h3 class="mb-4 text-small font-semibold uppercase tracking-widest text-secondary">
+					Seguinos
+				</h3>
+				<ul class="flex flex-col gap-3">
+					{socialLinks.map((social) => (
+						<li>
+							<a
+								href={social.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-small text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+							>
+								{social.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+
+		<div
+			class="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row"
+		>
+			<p class="text-caption text-white/60">
+				© {new Date().getFullYear()} Apside. Todos los derechos reservados.
+			</p>
+			<a
+				href="mailto:hola@apside.dev"
+				class="text-caption text-white/60 transition-colors hover:text-white"
+			>
+				hola@apside.dev
+			</a>
+		</div>
+	</div>
+</footer>

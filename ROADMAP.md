@@ -19,10 +19,10 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Construir `Blob.astro`, `Wave.astro`, `DecorativeCircle.astro` (versiones base, sin animación)
 
 ## PHASE 2 — Layout
-- [ ] `Layout.astro` con meta tags base
-- [ ] `Navbar.astro` (con nombre "Apside" en Dx Figgle, sin logo por ahora)
-- [ ] `Footer.astro` (estructura fat footer, sin contenido final todavía)
-- [ ] Armar `index.astro` con las secciones vacías en orden
+- [x] `Layout.astro` con meta tags base
+- [x] `Navbar.astro` (con nombre "Apside" en Dx Figgle, sin logo por ahora)
+- [x] `Footer.astro` (estructura fat footer, sin contenido final todavía)
+- [x] Armar `index.astro` con las secciones vacías en orden
 
 ## PHASE 3 — Hero
 - [ ] Contenido en `src/content/sections/hero.ts` ("Apside" / "Tus ideas, nuestra misión.")
