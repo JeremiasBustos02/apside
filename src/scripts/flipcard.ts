@@ -1,23 +1,41 @@
 import { gsap } from "./gsap-init";
 
-const mm = gsap.matchMedia();
-
-document.addEventListener("click", (event) => {
-	const toggle = (event.target as HTMLElement).closest("[data-flip-toggle]");
-	if (!toggle) return;
-	const inner = toggle.closest<HTMLElement>(".flip-inner");
-	if (!inner) return;
-
-	if (mm.reducedMotion) {
-		inner.dataset.flipped = inner.dataset.flipped === "true" ? "false" : "true";
+const flipTo = (inner: HTMLElement, angle: number) => {
+	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+		inner.dataset.flipped = angle === 180 ? "true" : "false";
 		return;
 	}
+	gsap.to(inner, { rotationY: angle, duration: 0.7, ease: "power2.inOut" });
+	inner.dataset.flipped = angle === 180 ? "true" : "false";
+};
 
-	const flipped = inner.dataset.flipped === "true";
-	gsap.to(inner, {
-		rotationY: flipped ? 0 : 180,
-		duration: 0.7,
-		ease: "power2.inOut",
-	});
-	inner.dataset.flipped = flipped ? "false" : "true";
+const isFlipped = (inner: HTMLElement) => inner.dataset.flipped === "true";
+
+const fine = window.matchMedia("(pointer: fine)").matches;
+const coarse = window.matchMedia("(pointer: coarse)").matches;
+
+document.querySelectorAll<HTMLElement>("[data-flip]").forEach((card) => {
+	const inner = card.querySelector<HTMLElement>("[data-flip-inner]");
+	if (!inner) return;
+
+	if (fine) {
+		card.addEventListener("pointerenter", () => {
+			if (!isFlipped(inner)) flipTo(inner, 180);
+		});
+		card.addEventListener("pointerleave", () => {
+			if (isFlipped(inner)) flipTo(inner, 0);
+		});
+		card.addEventListener("focusin", () => {
+			if (!isFlipped(inner)) flipTo(inner, 180);
+		});
+		card.addEventListener("focusout", () => {
+			if (isFlipped(inner)) flipTo(inner, 0);
+		});
+	}
+
+	if (coarse) {
+		card.addEventListener("click", () => {
+			flipTo(inner, isFlipped(inner) ? 0 : 180);
+		});
+	}
 });

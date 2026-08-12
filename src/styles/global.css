@@ -2,6 +2,13 @@
 @import "./fonts.css";
 @import "./theme.css";
 
+@utility container-apside {
+	width: 100%;
+	max-width: var(--max-w-content);
+	margin-inline: auto;
+	padding-inline: var(--spacing-gutter);
+}
+
 @layer base {
 	html {
 		scroll-behavior: smooth;

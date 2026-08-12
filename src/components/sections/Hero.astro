@@ -4,7 +4,7 @@ import Blob from "../ui/Blob.astro";
 import DecorativeCircle from "../ui/DecorativeCircle.astro";
 ---
 
-<section id="hero" class="relative flex scroll-mt-24 items-center overflow-hidden bg-white">
+<section id="hero" class="relative z-10 flex scroll-mt-24 items-center overflow-hidden bg-soft">
 	<Blob
 		color="soft"
 		size={420}
@@ -40,7 +40,10 @@ import DecorativeCircle from "../ui/DecorativeCircle.astro";
 		parallax={0.35}
 	/>
 
-	<div class="mx-auto flex w-full max-w-content flex-col items-center gap-8 px-gutter pb-section pt-section">
+	<div
+		data-hero-fade
+		class="container-apside flex flex-col items-center gap-8 pb-section pt-section"
+	>
 		<h1 class="text-center font-display text-display text-ink">{hero.title}</h1>
 		<p class="max-w-2xl text-center text-h3 text-ink/80">{hero.subtitle}</p>
 	</div>

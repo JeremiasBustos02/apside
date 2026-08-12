@@ -1,6 +1,5 @@
 export const whyApside = {
-	eyebrow: "¿Por qué Apside?",
-	title: "Creamos lo que imaginás",
+	title: "¿Por qué Apside?",
 	description:
 		"Somos un equipo chico que combina diseño, desarrollo y estrategia para construir productos digitales que funcionan y se sienten bien. No hacemos plantillas: cada proyecto nace de cero.",
 	highlights: [
@@ -8,8 +7,4 @@ export const whyApside = {
 		"Desarrollo limpio y escalable",
 		"Proceso honesto y transparente",
 	],
-	cta: {
-		label: "Conocé nuestro proceso",
-		href: "#proceso",
-	},
 } as const;

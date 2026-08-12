@@ -5,10 +5,9 @@ interface Props {
 	role: string;
 	photo?: string;
 	joinedYear: number;
-	traits: string[];
 }
 
-const { id, name, role, photo, joinedYear, traits } = Astro.props;
+const { id, name, role, photo, joinedYear } = Astro.props;
 
 const initials = name
 	.split(" ")
@@ -82,13 +81,6 @@ const initials = name
 				<slot />
 			</div>
 			<p class="text-caption text-ink/60">Desde {joinedYear}</p>
-			<div class="flex flex-wrap gap-tight">
-				{traits.map((trait) => (
-					<span class="rounded-pill bg-secondary/15 px-3 py-1 text-caption text-secondary">
-						{trait}
-					</span>
-				))}
-			</div>
 		</div>
 	</div>
 </div>

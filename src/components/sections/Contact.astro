@@ -44,13 +44,6 @@ const iconPaths: Record<string, string[]> = {
 		parallax={0.6}
 	/>
 	<DecorativeCircle
-		color="accent"
-		size={56}
-		ring
-		position="absolute left-[10%] top-[8%]"
-		parallax={0.25}
-	/>
-	<DecorativeCircle
 		color="primary"
 		size={40}
 		position="absolute right-[8%] bottom-[10%]"
@@ -58,7 +51,7 @@ const iconPaths: Record<string, string[]> = {
 	/>
 
 	<div
-		class="relative mx-auto grid max-w-content grid-cols-1 items-start gap-10 px-gutter md:grid-cols-[1fr_1.2fr] md:gap-16"
+		class="container-apside relative grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16"
 	>
 		<div class="flex flex-col gap-8" data-reveal>
 			<div class="flex flex-col gap-4">
@@ -67,7 +60,9 @@ const iconPaths: Record<string, string[]> = {
 				>
 					{contact.eyebrow}
 				</p>
-				<h2 class="font-display text-h2 text-white">{contact.title}</h2>
+				<div class="flex items-center gap-4">
+					<h2 class="font-display text-h2 text-white">{contact.title}</h2>
+				</div>
 				<p class="max-w-xl text-body text-white/80">{contact.description}</p>
 			</div>
 

@@ -1,6 +1,5 @@
 ---
 import { whyApside } from "../../content/sections/why-apside";
-import Button from "../ui/Button.astro";
 import Blob from "../ui/Blob.astro";
 import DecorativeCircle from "../ui/DecorativeCircle.astro";
 import Wave from "../ui/Wave.astro";
@@ -26,14 +25,10 @@ import Wave from "../ui/Wave.astro";
 	/>
 
 	<div
-		class="mx-auto grid w-full max-w-content grid-cols-1 items-center gap-10 px-gutter pb-section pt-section md:grid-cols-[1.2fr_1fr] md:gap-16"
+		data-reveal
+		class="container-apside grid grid-cols-1 items-center gap-10 pb-section pt-section md:grid-cols-[1.2fr_1fr] md:gap-16"
 	>
-		<div class="flex flex-col items-start gap-6" data-reveal>
-			<p
-				class="font-sans text-small font-semibold uppercase tracking-widest text-primary"
-			>
-				{whyApside.eyebrow}
-			</p>
+		<div class="flex flex-col items-start gap-6">
 			<h2 class="font-display text-h2 text-ink">{whyApside.title}</h2>
 			<p class="max-w-xl text-body text-ink/80">{whyApside.description}</p>
 			<ul class="flex flex-col gap-3">
@@ -49,10 +44,10 @@ import Wave from "../ui/Wave.astro";
 					))
 				}
 			</ul>
-			<Button href={whyApside.cta.href}>{whyApside.cta.label}</Button>
 		</div>
 
 		<div
+			data-why-visual
 			class="relative flex aspect-square w-full max-w-[260px] items-center justify-center justify-self-center rounded-card border-2 border-dashed border-primary/30 bg-white/60 sm:max-w-md"
 			role="img"
 			aria-label="Espacio reservado para la ilustración 3D"
@@ -63,3 +58,23 @@ import Wave from "../ui/Wave.astro";
 
 	<Wave color="ink" class="absolute inset-x-0 bottom-0" />
 </section>
+
+<script>
+	import { gsap } from "../../scripts/gsap-init";
+
+	const mm = gsap.matchMedia();
+
+	mm.add("(prefers-reduced-motion: no-preference)", () => {
+		const visual = document.querySelector<HTMLElement>("[data-why-visual]");
+		if (!visual) return;
+
+		gsap.to(visual, {
+			y: -14,
+			duration: 3,
+			yoyo: true,
+			repeat: -1,
+			ease: "sine.inOut",
+			delay: 1,
+		});
+	});
+</script>

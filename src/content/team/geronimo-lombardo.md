@@ -2,7 +2,6 @@
 name: Gerónimo Lombardo
 role: Diseñador Gráfico
 joinedYear: 2023
-traits: ["Creativo", "Detallista", "Visual"]
 order: 2
 ---
 

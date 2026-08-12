@@ -8,53 +8,44 @@ interface Props {
 	improves: string;
 }
 
-const { title, summary, forWhom, problem, includes, improves } =
-	Astro.props;
+const { title, summary, forWhom, problem, includes, improves } = Astro.props;
 ---
 
 <article
-	class="flex flex-col gap-5 rounded-card border border-soft bg-white p-card shadow-sm"
+	class="group flex h-full flex-col gap-4 overflow-hidden rounded-card border border-soft bg-white p-card shadow-sm transition-all focus-within:border-primary/30 hover:border-primary/30 hover:shadow-md"
 >
 	<div class="flex flex-col gap-2">
 		<h3 class="font-display text-h4 text-ink">{title}</h3>
-		<p class="text-small text-primary">{summary}</p>
+		<p class="text-small text-ink/70">{summary}</p>
 	</div>
 
-	<div class="flex flex-col gap-4">
-		<div class="rounded-lg border-l-4 border-primary bg-soft/50 px-4 py-3">
-			<p class="text-caption font-semibold uppercase tracking-widest text-primary">
-				Para quién
-			</p>
-			<p class="mt-1 text-body text-ink/80">{forWhom}</p>
-		</div>
-
-		<div class="rounded-lg border-l-4 border-accent bg-white px-4 py-3">
-			<p class="text-caption font-semibold uppercase tracking-widest text-accent">
-				El problema
-			</p>
-			<p class="mt-1 text-body italic text-ink/70">{problem}</p>
-		</div>
-
-		<div>
-			<p class="text-caption font-semibold uppercase tracking-widest text-ink/60">
-				Qué incluye
-			</p>
-			<ul class="mt-3 flex flex-wrap gap-2">
-				{includes.map((item) => (
-					<li
-						class="rounded-pill bg-secondary/10 px-3 py-1 text-caption text-secondary"
-					>
-						{item}
-					</li>
-				))}
-			</ul>
-		</div>
-
-		<div class="border-t border-soft pt-4">
-			<p class="text-caption font-semibold uppercase tracking-widest text-ink/60">
-				Lo que mejora
-			</p>
-			<p class="mt-1 font-medium text-primary">{improves}</p>
+	<div
+		class="grid grid-rows-[0fr] transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr]"
+	>
+		<div class="overflow-hidden">
+			<div class="flex flex-col gap-4 border-t border-soft pt-4">
+				<p class="text-small text-ink/70">
+					<span class="font-semibold text-primary">Para quién: </span>
+					{forWhom}
+				</p>
+				<p class="text-small text-ink/70">
+					<span class="font-semibold text-primary">Problema que resuelve: </span>
+					{problem}
+				</p>
+				<ul class="flex flex-wrap gap-2">
+					{includes.map((item) => (
+						<li
+							class="rounded-pill bg-secondary/10 px-3 py-1 text-caption text-ink/70"
+						>
+							{item}
+						</li>
+					))}
+				</ul>
+			</div>
 		</div>
 	</div>
+
+	<p class="mt-auto border-t border-soft pt-4 font-medium text-primary">
+		{improves}
+	</p>
 </article>

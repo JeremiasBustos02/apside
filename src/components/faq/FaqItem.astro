@@ -7,11 +7,13 @@ interface Props {
 const { question, answer } = Astro.props;
 ---
 
-<details class="group border-b border-soft last:border-b-0">
+<details
+	class="group rounded-card border border-soft bg-white p-card shadow-sm transition-all open:border-primary/30 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent"
+>
 	<summary
-		class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent [&::-webkit-details-marker]:hidden"
+		class="flex cursor-pointer list-none items-center justify-between gap-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent [&::-webkit-details-marker]:hidden"
 	>
-		<span class="font-display text-h4 text-ink group-open:text-primary">
+		<span class="flex-1 font-display text-h4 text-ink group-open:text-primary">
 			{question}
 		</span>
 		<svg
@@ -28,7 +30,7 @@ const { question, answer } = Astro.props;
 			<path d="m6 9 6 6 6-6" />
 		</svg>
 	</summary>
-	<div class="pb-6 text-body text-ink/80">
+	<div class="pt-4 text-body text-ink/80">
 		{answer}
 	</div>
 </details>

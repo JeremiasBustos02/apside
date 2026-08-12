@@ -2,7 +2,6 @@
 name: Jeremías Bustos
 role: Desarrollador
 joinedYear: 2023
-traits: ["Código limpio", "Proactivo", "Autodidacta"]
 order: 1
 ---
 

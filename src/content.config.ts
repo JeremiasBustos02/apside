@@ -9,7 +9,6 @@ const team = defineCollection({
     role: z.string(),
     photo: z.string().optional(),
     joinedYear: z.number(),
-    traits: z.array(z.string()),
     order: z.number(),
   }),
 });
@@ -19,6 +18,7 @@ const clients = defineCollection({
   schema: z.object({
     name: z.string(),
     logo: z.string().optional(),
+    description: z.string(),
     url: z.string(),
     order: z.number(),
   }),

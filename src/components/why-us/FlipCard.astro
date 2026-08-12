@@ -10,7 +10,7 @@ interface Props {
 const { title, highlight, description } = Astro.props;
 ---
 
-<div data-flip class="group relative h-72 [perspective:1000px] sm:h-64 lg:[perspective:1200px]">
+<div data-flip class="group relative h-[24rem] [perspective:1000px] sm:h-[26rem] lg:h-auto lg:aspect-[3/4] lg:[perspective:1200px]">
 	<div
 		class="flip-inner relative h-full w-full [transform-style:preserve-3d]"
 		data-flip-inner

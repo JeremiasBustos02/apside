@@ -10,7 +10,7 @@ const clients = (await getCollection("clients")).sort(
 ---
 
 <section id="clientes" class="relative scroll-mt-24 overflow-hidden bg-ink">
-	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
+	<div class="container-apside pb-section pt-section">
 		<SectionTitle
 			title="Clientes"
 			subtitle="Confían en nosotros"
@@ -22,11 +22,12 @@ const clients = (await getCollection("clients")).sort(
 			data-reveal-group
 		>
 			{clients.map((client) => (
-				<li>
+				<li class="h-full">
 					<ClientBadge
 						id={client.id}
 						name={client.data.name}
 						logo={client.data.logo}
+						description={client.data.description}
 						url={client.data.url}
 					/>
 				</li>

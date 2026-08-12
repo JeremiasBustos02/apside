@@ -10,13 +10,13 @@ const faqItems = (await getCollection("faq")).sort(
 ---
 
 <section id="faq" class="relative scroll-mt-24 overflow-hidden bg-primary/5">
-	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
+	<div class="container-apside pb-section pt-section">
 		<SectionTitle
 			title="Preguntas frecuentes"
 			subtitle="Todo lo que necesitás saber antes de arrancar"
 			align="center"
 		/>
-		<div class="mx-auto mt-block max-w-3xl" data-reveal-group>
+		<div class="mx-auto mt-block flex max-w-3xl flex-col gap-card" data-reveal-group>
 			{faqItems.map((item) => (
 				<FaqItem
 					question={item.data.question}
