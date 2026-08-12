@@ -7,47 +7,78 @@ const navLinks = [
 ];
 ---
 
-<header class="sticky top-0 z-50 border-b border-soft/60 bg-white/90 backdrop-blur-md">
-	<nav
-		aria-label="Navegación principal"
-		class="mx-auto flex max-w-content items-center justify-between gap-6 px-gutter py-4"
-	>
-		<a href="#hero" class="font-display text-h3 text-ink">
-			Apside
-		</a>
-
-		<ul class="hidden items-center gap-8 md:flex">
-			{navLinks.map((link) => (
-				<li>
-					<a
-						href={link.href}
-						class="font-sans text-small font-medium text-ink/70 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-					>
-						{link.label}
-					</a>
-				</li>
-			))}
-		</ul>
-
-		<button
-			type="button"
-			class="md:hidden"
-			data-nav-toggle
-			aria-expanded="false"
-			aria-controls="mobile-nav"
-			aria-label="Abrir menú"
+<header
+	data-nav
+	class="sticky top-0 z-50 transition-all duration-300"
+>
+	<div data-nav-inner class="transition-all duration-300">
+		<nav
+			aria-label="Navegación principal"
+			class="mx-auto flex max-w-content items-center gap-6 px-gutter py-4"
 		>
-			<svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true" data-nav-icon-open>
-				<path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-ink" />
-			</svg>
-			<svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true" data-nav-icon-close class="hidden">
-				<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-ink" />
-			</svg>
-		</button>
-	</nav>
+			<a
+				href="#hero"
+				class="nav-brand whitespace-nowrap font-display text-h3 text-ink transition-colors"
+			>
+				Apside
+			</a>
 
-	<div id="mobile-nav" data-mobile-nav class="hidden md:hidden">
-		<ul class="flex flex-col gap-5 px-gutter pb-6">
+			<ul
+				class="nav-links hidden flex-1 items-center justify-center gap-8 md:flex"
+			>
+				{navLinks.map((link) => (
+					<li>
+						<a
+							href={link.href}
+							class="nav-link font-sans text-small font-medium text-ink/70 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						>
+							{link.label}
+						</a>
+					</li>
+				))}
+			</ul>
+
+			<a
+				href="#contacto"
+				class="hidden items-center gap-2 rounded-pill bg-primary px-5 py-2.5 text-small font-medium text-white transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:inline-flex"
+			>
+				Contactanos
+				<svg
+					width="14"
+					height="14"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
+				>
+					<path d="M5 12h14" />
+					<path d="m12 5 7 7-7 7" />
+				</svg>
+			</a>
+
+			<button
+				type="button"
+				class="nav-toggle md:hidden"
+				data-nav-toggle
+				aria-expanded="false"
+				aria-controls="mobile-nav"
+				aria-label="Abrir menú"
+			>
+				<svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true" data-nav-icon-open>
+					<path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-ink" />
+				</svg>
+				<svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true" data-nav-icon-close class="hidden">
+					<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-ink" />
+				</svg>
+			</button>
+		</nav>
+	</div>
+
+	<div id="mobile-nav" data-mobile-nav class="mx-auto hidden max-w-content md:hidden">
+		<ul class="flex flex-col gap-5 px-gutter pb-6 pt-2">
 			{navLinks.map((link) => (
 				<li>
 					<a
@@ -62,11 +93,51 @@ const navLinks = [
 	</div>
 </header>
 
+<style>
+	:global(header[data-nav-scrolled] .nav-brand) {
+		color: #fff;
+	}
+	:global(header[data-nav-scrolled] .nav-link) {
+		color: rgba(255, 255, 255, 0.7);
+	}
+	:global(header[data-nav-scrolled] .nav-link:hover) {
+		color: #fff;
+	}
+	:global(header[data-nav-scrolled] .nav-toggle svg path) {
+		stroke: #fff;
+	}
+	:global(header[data-nav-scrolled] [data-nav-inner]) {
+		background-color: rgba(9, 24, 33, 0.92);
+		-webkit-backdrop-filter: blur(12px);
+		backdrop-filter: blur(12px);
+		border-radius: 1rem;
+		margin-top: 0.75rem;
+		margin-inline: 0.75rem;
+		box-shadow: 0 10px 30px -12px rgba(9, 24, 33, 0.45);
+	}
+	:global(header[data-nav-scrolled] [data-nav-inner] nav) {
+		padding-top: 0.75rem;
+		padding-bottom: 0.75rem;
+	}
+</style>
+
 <script>
+	const header = document.querySelector("[data-nav]");
 	const toggle = document.querySelector("[data-nav-toggle]");
 	const nav = document.querySelector("[data-mobile-nav]");
 	const iconOpen = document.querySelector("[data-nav-icon-open]");
 	const iconClose = document.querySelector("[data-nav-icon-close]");
+
+	const onScroll = () => {
+		if (!header) return;
+		if (window.scrollY > 24) {
+			header.setAttribute("data-nav-scrolled", "");
+		} else {
+			header.removeAttribute("data-nav-scrolled");
+		}
+	};
+	onScroll();
+	window.addEventListener("scroll", onScroll, { passive: true });
 
 	if (toggle && nav && iconOpen && iconClose) {
 		const setExpanded = (expanded) => {
