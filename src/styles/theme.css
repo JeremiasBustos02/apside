@@ -1,0 +1,10 @@
+@theme static {
+  --font-sans: "Poppins", system-ui, sans-serif;
+  --font-display: "Dx Figgle", "Poppins", system-ui, sans-serif;
+
+  --color-ink: #091821;
+  --color-primary: #4E82A2;
+  --color-secondary: #ACCC8E;
+  --color-accent: #FEDA3D;
+  --color-soft: #E8EEF1;
+}
