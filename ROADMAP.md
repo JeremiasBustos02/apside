@@ -25,10 +25,10 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Armar `index.astro` con las secciones vacías en orden
 
 ## PHASE 3 — Hero
-- [ ] Contenido en `src/content/sections/hero.ts` ("Apside" / "Tus ideas, nuestra misión.")
-- [ ] Maquetar Hero.astro con texto + espacio para el PNG 3D
-- [ ] Integrar imagen 3D (placeholder hasta que el usuario la elija)
-- [ ] Ondas de transición hacia la siguiente sección
+- [x] Contenido en `src/content/sections/hero.ts` ("Apside" / "Tus ideas, nuestra misión.")
+- [x] Maquetar Hero.astro con texto + espacio para el PNG 3D
+- [x] Integrar imagen 3D (placeholder hasta que el usuario la elija)
+- [x] Ondas de transición hacia la siguiente sección
 
 ## PHASE 4 — Why Apside
 - [ ] Contenido en `src/content/sections/why-apside.ts`

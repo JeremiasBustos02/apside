@@ -1,7 +1,52 @@
 ---
-import SectionTitle from "../ui/SectionTitle.astro";
+import { hero } from "../../content/sections/hero";
+import Button from "../ui/Button.astro";
+import Blob from "../ui/Blob.astro";
+import DecorativeCircle from "../ui/DecorativeCircle.astro";
+import Wave from "../ui/Wave.astro";
 ---
 
-<section id="hero" class="scroll-mt-24">
-	<SectionTitle title="Hero" align="left" class="px-gutter" />
+<section id="hero" class="relative flex scroll-mt-24 items-center overflow-hidden bg-white">
+	<Blob
+		color="soft"
+		size={420}
+		position="absolute -left-32 -top-24 -z-10"
+		class="opacity-70"
+	/>
+	<DecorativeCircle
+		color="secondary"
+		size={180}
+		position="absolute right-[12%] top-[15%] -z-10"
+	/>
+	<DecorativeCircle
+		color="primary"
+		size={72}
+		ring
+		position="absolute left-[8%] bottom-[18%] -z-10"
+	/>
+
+	<div
+		class="mx-auto grid w-full max-w-content grid-cols-1 items-center gap-16 px-gutter pb-section pt-section md:grid-cols-[1.2fr_1fr]"
+	>
+		<div class="flex flex-col items-start gap-8">
+			<h1 class="font-display text-display text-ink">{hero.title}</h1>
+			<p class="text-h3 text-ink/80">{hero.subtitle}</p>
+			<div class="flex flex-wrap gap-4">
+				<Button href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</Button>
+				<Button variant="secondary" href={hero.ctaSecondary.href}>
+					{hero.ctaSecondary.label}
+				</Button>
+			</div>
+		</div>
+
+		<div
+			class="flex aspect-square w-full max-w-md items-center justify-center justify-self-center rounded-card border-2 border-dashed border-soft bg-soft/40"
+			role="img"
+			aria-label="Espacio reservado para la ilustración 3D"
+		>
+			<p class="text-small text-ink/40">Ilustración 3D pendiente</p>
+		</div>
+	</div>
+
+	<Wave color="soft" class="absolute inset-x-0 bottom-0" />
 </section>
