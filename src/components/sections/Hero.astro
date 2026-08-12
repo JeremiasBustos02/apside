@@ -1,9 +1,7 @@
 ---
 import { hero } from "../../content/sections/hero";
-import Button from "../ui/Button.astro";
 import Blob from "../ui/Blob.astro";
 import DecorativeCircle from "../ui/DecorativeCircle.astro";
-import Wave from "../ui/Wave.astro";
 ---
 
 <section id="hero" class="relative flex scroll-mt-24 items-center overflow-hidden bg-white">
@@ -27,29 +25,23 @@ import Wave from "../ui/Wave.astro";
 		position="absolute left-[8%] bottom-[18%] -z-10"
 		parallax={0.2}
 	/>
+	<Blob
+		color="secondary"
+		size={140}
+		position="absolute left-[10%] top-[22%] -z-10"
+		class="opacity-25"
+		parallax={0.5}
+	/>
+	<Blob
+		color="primary"
+		size={120}
+		position="absolute right-[14%] bottom-[24%] -z-10"
+		class="opacity-10"
+		parallax={0.35}
+	/>
 
-	<div
-		class="mx-auto grid w-full max-w-content grid-cols-1 items-center gap-10 px-gutter pb-section pt-section md:grid-cols-[1.2fr_1fr] md:gap-16"
-	>
-		<div class="flex flex-col items-start gap-8">
-			<h1 class="font-display text-display text-ink">{hero.title}</h1>
-			<p class="text-h3 text-ink/80">{hero.subtitle}</p>
-			<div class="flex flex-wrap gap-4">
-				<Button href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</Button>
-				<Button variant="secondary" href={hero.ctaSecondary.href}>
-					{hero.ctaSecondary.label}
-				</Button>
-			</div>
-		</div>
-
-		<div
-			class="flex aspect-square w-full max-w-[260px] items-center justify-center justify-self-center rounded-card border-2 border-dashed border-soft bg-soft/40 sm:max-w-md"
-			role="img"
-			aria-label="Espacio reservado para la ilustración 3D"
-		>
-			<p class="px-4 text-center text-small text-ink/40">Ilustración 3D pendiente</p>
-		</div>
+	<div class="mx-auto flex w-full max-w-content flex-col items-center gap-8 px-gutter pb-section pt-section">
+		<h1 class="text-center font-display text-display text-ink">{hero.title}</h1>
+		<p class="max-w-2xl text-center text-h3 text-ink/80">{hero.subtitle}</p>
 	</div>
-
-	<Wave color="soft" class="absolute inset-x-0 bottom-0" />
 </section>
