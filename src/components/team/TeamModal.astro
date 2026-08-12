@@ -1,0 +1,91 @@
+---
+interface Props {
+	id: string;
+	name: string;
+	role: string;
+	photo?: string;
+	joinedYear: number;
+	traits: string[];
+}
+
+const { id, name, role, photo, joinedYear, traits } = Astro.props;
+
+const initials = name
+	.split(" ")
+	.map((part) => part[0])
+	.join("");
+---
+
+<div
+	data-team-modal={id}
+	id={`modal-${id}`}
+	class="fixed inset-0 z-[60] hidden"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby={`modal-title-${id}`}
+>
+	<div
+		data-team-backdrop
+		class="absolute inset-0 bg-ink/60 backdrop-blur-sm"
+	></div>
+	<div class="relative mx-auto mt-[10vh] w-[calc(100%-2rem)] max-w-lg rounded-card bg-white p-card shadow-xl">
+		<button
+			type="button"
+			data-team-close
+			aria-label="Cerrar"
+			class="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full text-ink/60 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent hover:bg-soft hover:text-ink"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<path d="M18 6 6 18" />
+				<path d="m6 6 12 12" />
+			</svg>
+		</button>
+
+		<div class="mt-2 flex flex-col items-start gap-5 pt-2">
+			{photo ? (
+				<img
+					src={photo}
+					alt=""
+					width={128}
+					height={128}
+					class="size-32 rounded-full object-cover"
+				/>
+			) : (
+				<div
+					class="flex size-32 items-center justify-center rounded-full bg-soft font-display text-h2 text-primary"
+					aria-hidden="true"
+				>
+					{initials}
+				</div>
+			)}
+			<div class="flex flex-col gap-1">
+				<h3 id={`modal-title-${id}`} class="font-display text-h3 text-ink">
+					{name}
+				</h3>
+				<p class="text-small text-ink/70">{role}</p>
+			</div>
+			<div class="text-body text-ink/80">
+				<slot />
+			</div>
+			<p class="text-caption text-ink/60">Desde {joinedYear}</p>
+			<div class="flex flex-wrap gap-tight">
+				{traits.map((trait) => (
+					<span class="rounded-pill bg-secondary/15 px-3 py-1 text-caption text-secondary">
+						{trait}
+					</span>
+				))}
+			</div>
+		</div>
+	</div>
+</div>

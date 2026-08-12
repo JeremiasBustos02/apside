@@ -1,7 +1,111 @@
 ---
+import { getCollection, render } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
+import Wave from "../ui/Wave.astro";
+import TeamCard from "../team/TeamCard.astro";
+import TeamModal from "../team/TeamModal.astro";
+
+const teamMembers = (await getCollection("team")).sort(
+	(a, b) => a.data.order - b.data.order
+);
+
+const renderedModals = await Promise.all(
+	teamMembers.map(async (member) => {
+		const { Content } = await render(member);
+		return { member, Content };
+	})
+);
 ---
 
-<section id="equipo" class="scroll-mt-24">
-	<SectionTitle title="Equipo" align="left" class="px-gutter" />
+<section
+	id="equipo"
+	class="relative scroll-mt-24 overflow-hidden bg-white"
+>
+	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
+		<SectionTitle
+			title="Equipo"
+			subtitle="El equipo detrás de Apside"
+			align="center"
+		/>
+		<div class="mt-block grid grid-cols-1 gap-card sm:grid-cols-2 lg:grid-cols-3">
+			{teamMembers.map((member) => (
+				<TeamCard
+					id={member.id}
+					name={member.data.name}
+					role={member.data.role}
+					photo={member.data.photo}
+					traits={member.data.traits}
+				/>
+			))}
+		</div>
+	</div>
+
+	{renderedModals.map(({ member, Content }) => (
+		<TeamModal
+			id={member.id}
+			name={member.data.name}
+			role={member.data.role}
+			photo={member.data.photo}
+			joinedYear={member.data.joinedYear}
+			traits={member.data.traits}
+		>
+			<Content />
+		</TeamModal>
+	))}
+
+	<Wave color="soft" class="absolute inset-x-0 bottom-0" />
+
+	<script>
+		function openModal(id: string) {
+			const modal = document.querySelector<HTMLElement>(
+				`[data-team-modal="${CSS.escape(id)}"]`
+			);
+			if (!modal) return;
+			modal.classList.remove("hidden");
+			document.body.style.overflow = "hidden";
+			modal.querySelector<HTMLElement>("[data-team-close]")?.focus();
+		}
+
+		function closeModal(modal: HTMLElement) {
+			modal.classList.add("hidden");
+			document.body.style.overflow = "";
+			const id = modal.dataset.teamModal;
+			if (id) {
+				document
+					.querySelector<HTMLElement>(`[data-team-open="${CSS.escape(id)}"]`)
+					?.focus();
+			}
+		}
+
+		document.addEventListener("click", (e) => {
+			const openBtn = (e.target as HTMLElement).closest<HTMLElement>(
+				"[data-team-open]"
+			);
+			if (openBtn) {
+				openModal(openBtn.dataset.teamOpen ?? "");
+				return;
+			}
+			const closeBtn = (e.target as HTMLElement).closest<HTMLElement>(
+				"[data-team-close]"
+			);
+			const backdrop = (e.target as HTMLElement).closest<HTMLElement>(
+				"[data-team-backdrop]"
+			);
+			if (closeBtn || backdrop) {
+				const modal = (e.target as HTMLElement).closest<HTMLElement>(
+					"[data-team-modal]"
+				);
+				if (modal) closeModal(modal);
+			}
+		});
+
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape") {
+				const openModalEl = document.querySelector<HTMLElement>(
+					"[data-team-modal]:not(.hidden)"
+				);
+				if (openModalEl) closeModal(openModalEl);
+			}
+		});
+	</script>
 </section>

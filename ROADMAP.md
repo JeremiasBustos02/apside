@@ -36,10 +36,10 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Blobs decorativos detrás de la ilustración
 
 ## PHASE 5 — Team
-- [ ] Entradas de colección `team/` (Jeremías Bustos, Gerónimo Lombardo)
-- [ ] `TeamCard.astro` (foto placeholder, nombre, puesto)
-- [ ] `TeamModal.astro` (bio, año de ingreso, características)
-- [ ] Apertura/cierre del modal (sin animación GSAP todavía, solo funcional)
+- [x] Entradas de colección `team/` (Jeremías Bustos, Gerónimo Lombardo)
+- [x] `TeamCard.astro` (foto placeholder, nombre, puesto)
+- [x] `TeamModal.astro` (bio, año de ingreso, características)
+- [x] Apertura/cierre del modal (sin animación GSAP todavía, solo funcional)
 
 ## PHASE 6 — Clients
 - [ ] Entradas de colección `clients/` (placeholders)
