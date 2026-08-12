@@ -42,10 +42,10 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Apertura/cierre del modal (sin animación GSAP todavía, solo funcional)
 
 ## PHASE 6 — Clients
-- [ ] Entradas de colección `clients/` (placeholders)
-- [ ] `ClientBadge.astro` con bordes redondeados
-- [ ] Link a la página del cliente (placeholder `#` mientras no exista)
-- [ ] Estado hover (nombre + "Visitar sitio →")
+- [x] Entradas de colección `clients/` (placeholders)
+- [x] `ClientBadge.astro` con bordes redondeados
+- [x] Link a la página del cliente (placeholder `#` mientras no exista)
+- [x] Estado hover (nombre + "Visitar sitio →")
 
 ## PHASE 7 — Process
 - [ ] Entradas de colección `process/` (Contacto, Análisis y diseño, Implementación, Monitoreo y soporte)

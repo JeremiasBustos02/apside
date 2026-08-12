@@ -1,7 +1,35 @@
 ---
+import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
+import Wave from "../ui/Wave.astro";
+import ClientBadge from "../clients/ClientBadge.astro";
+
+const clients = (await getCollection("clients")).sort(
+	(a, b) => a.data.order - b.data.order,
+);
 ---
 
-<section id="clientes" class="scroll-mt-24">
-	<SectionTitle title="Clientes" align="left" class="px-gutter" />
+<section id="clientes" class="relative scroll-mt-24 overflow-hidden bg-soft">
+	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
+		<SectionTitle
+			title="Clientes"
+			subtitle="Confían en nosotros"
+			align="center"
+		/>
+		<ul
+			class="mt-block grid grid-cols-1 gap-card sm:grid-cols-2 lg:grid-cols-4"
+		>
+			{clients.map((client) => (
+				<li>
+					<ClientBadge
+						id={client.id}
+						name={client.data.name}
+						logo={client.data.logo}
+						url={client.data.url}
+					/>
+				</li>
+			))}
+		</ul>
+	</div>
+	<Wave color="white" class="absolute inset-x-0 bottom-0" />
 </section>
