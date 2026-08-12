@@ -25,10 +25,10 @@ const renderedModals = await Promise.all(
 		<SectionTitle
 			title="Equipo"
 			subtitle="El equipo detrás de Apside"
-			align="center"
+			align="left"
 			tone="light"
 		/>
-		<div class="mt-block grid grid-cols-1 gap-card sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+		<div class="mt-gutter grid grid-cols-1 gap-card sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
 			{teamMembers.map((member) => (
 				<TeamCard
 					id={member.id}

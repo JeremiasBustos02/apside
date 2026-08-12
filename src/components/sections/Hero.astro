@@ -4,47 +4,31 @@ import Blob from "../ui/Blob.astro";
 import DecorativeCircle from "../ui/DecorativeCircle.astro";
 ---
 
-<section id="hero" class="relative z-10 flex scroll-mt-24 items-center overflow-hidden bg-soft">
-	<Blob
-		color="soft"
-		size={420}
-		position="absolute -left-32 -top-24 -z-10"
-		class="opacity-70"
-		parallax={0.4}
-	/>
-	<DecorativeCircle
-		color="secondary"
-		size={180}
-		position="absolute right-[12%] top-[15%] -z-10"
-		parallax={0.3}
-	/>
-	<DecorativeCircle
-		color="primary"
-		size={72}
-		ring
-		position="absolute left-[8%] bottom-[18%] -z-10"
-		parallax={0.2}
-	/>
-	<Blob
-		color="secondary"
-		size={140}
-		position="absolute left-[10%] top-[22%] -z-10"
-		class="opacity-25"
-		parallax={0.5}
-	/>
-	<Blob
-		color="primary"
-		size={120}
-		position="absolute right-[14%] bottom-[24%] -z-10"
-		class="opacity-10"
-		parallax={0.35}
-	/>
-
+<section id="hero" class="relative z-10 flex min-h-svh scroll-mt-24 items-center overflow-hidden">
+	<div
+		data-hero-scrim
+		aria-hidden="true"
+		class="pointer-events-none absolute inset-x-0 top-0 z-[-1] h-[150px] transition-opacity duration-300"
+	></div>
 	<div
 		data-hero-fade
-		class="container-apside flex flex-col items-center gap-8 pb-section pt-section"
+		class="container-apside flex flex-col items-center gap-4 pb-section pt-section"
 	>
-		<h1 class="text-center font-display text-display text-ink">{hero.title}</h1>
-		<p class="max-w-2xl text-center text-h3 text-ink/80">{hero.subtitle}</p>
+		<h1 class="text-7xl md:text-9xl font-bold mb-2">{hero.title}</h1>
+		<p class="text-gray-500 text-xl italic">{hero.subtitle}</p>
 	</div>
 </section>
+
+<style>
+	[data-hero-scrim] {
+		background-image: linear-gradient(
+			to bottom,
+			rgba(0, 0, 0, 0.65) 0%,
+			rgba(0, 0, 0, 0.45) 20%,
+			rgba(0, 0, 0, 0) 60%
+		);
+	}
+	:global([data-hero-scrim].nav-crossfade-hidden) {
+		opacity: 0;
+	}
+</style>

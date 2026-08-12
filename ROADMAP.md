@@ -105,7 +105,8 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [ ] Centrar los labels de navegación
 - [ ] Aplicar el mismo padding/margin lateral general
 - [ ] Agregar botón "Contactanos" con flecha al final
-- [ ] Estado en el tope del Hero: transparente / leve sombreado
+- [ ] Reemplazar el scrim propio del header por un scrim del Hero (ver ARCHITECTURE.md): capa absoluta en la sección Hero, degradé negro de 3 stops (100%→75%→0%), texto del navbar blanco fijo en este estado
+- [ ] Crossfade simultáneo: scrim del Hero se desvanece mientras aparece el fondo oscuro+blur del navbar flotante, en el mismo rango de scroll
 - [ ] Estado con scroll: flotante (despegado de bordes), fondo oscuro con blur, esquinas redondeadas
 
 ### Hero

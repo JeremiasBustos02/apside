@@ -4,15 +4,15 @@ interface Props {
 	summary: string;
 	forWhom: string;
 	problem: string;
-	includes: string[];
 	improves: string;
 }
 
-const { title, summary, forWhom, problem, includes, improves } = Astro.props;
+const { title, summary, forWhom, problem, improves } = Astro.props;
 ---
 
 <article
-	class="group flex h-full flex-col gap-4 overflow-hidden rounded-card border border-soft bg-white p-card shadow-sm transition-all focus-within:border-primary/30 hover:border-primary/30 hover:shadow-md"
+	data-service-card
+	class="group flex flex-col gap-4 overflow-hidden rounded-card border border-soft bg-white p-card shadow-sm transition-all focus-within:border-primary/30 hover:border-primary/30 hover:shadow-md"
 >
 	<div class="flex flex-col gap-2">
 		<h3 class="font-display text-h4 text-ink">{title}</h3>
@@ -20,7 +20,7 @@ const { title, summary, forWhom, problem, includes, improves } = Astro.props;
 	</div>
 
 	<div
-		class="grid grid-rows-[0fr] transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr]"
+		class="grid grid-rows-[0fr] transition-all duration-500 ease-out group-open:grid-rows-[1fr]"
 	>
 		<div class="overflow-hidden">
 			<div class="flex flex-col gap-4 border-t border-soft pt-4">
@@ -32,20 +32,68 @@ const { title, summary, forWhom, problem, includes, improves } = Astro.props;
 					<span class="font-semibold text-primary">Problema que resuelve: </span>
 					{problem}
 				</p>
-				<ul class="flex flex-wrap gap-2">
-					{includes.map((item) => (
-						<li
-							class="rounded-pill bg-secondary/10 px-3 py-1 text-caption text-ink/70"
-						>
-							{item}
-						</li>
-					))}
-				</ul>
 			</div>
 		</div>
 	</div>
 
-	<p class="mt-auto border-t border-soft pt-4 font-medium text-primary">
-		{improves}
-	</p>
+	<div
+		class="mt-auto flex items-center justify-between gap-4 border-t border-soft pt-4"
+	>
+		<button
+			type="button"
+			data-service-toggle
+			aria-expanded="false"
+			class="flex shrink-0 cursor-pointer items-center gap-2 text-small font-semibold text-primary"
+		>
+			<span data-service-label class="whitespace-nowrap">Ver detalles</span>
+			<svg
+				class="h-4 w-4 transition-transform duration-300 group-open:rotate-180"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2.5"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"
+			>
+				<path d="m6 9 6 6 6-6" />
+			</svg>
+		</button>
+	</div>
 </article>
+
+<script>
+	const cards = Array.from(
+		document.querySelectorAll<HTMLElement>("[data-service-card]"),
+	);
+
+	const apply = (card: HTMLElement, open: boolean) => {
+		card.toggleAttribute("open", open);
+		card
+			.querySelector<HTMLButtonElement>("[data-service-toggle]")
+			?.setAttribute("aria-expanded", String(open));
+		const label = card.querySelector<HTMLElement>("[data-service-label]");
+		if (label) label.textContent = open ? "Ocultar" : "Ver detalles";
+	};
+
+	cards.forEach((card) => {
+		const toggle = card.querySelector<HTMLButtonElement>(
+			"[data-service-toggle]",
+		);
+
+		const onClick = () => {
+			if (card.hasAttribute("open")) {
+				apply(card, false);
+			} else {
+				cards.forEach((other) => apply(other, false));
+				apply(card, true);
+			}
+		};
+
+		toggle?.addEventListener("click", (event) => {
+			event.stopPropagation();
+			onClick();
+		});
+		card.addEventListener("click", onClick);
+	});
+</script>
