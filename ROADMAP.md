@@ -95,18 +95,55 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Ajuste especial de Process en mobile (timeline simplificada)
 - [x] Ajuste de tamaño/posición del PNG 3D en mobile
 
-## PHASE 15 — SEO
+## PHASE 15 — Revisión y refinamiento visual (Ronda 1)
+ 
+### General
+- [ ] Agregar contenedor con `max-width` y padding lateral consistente en toda la página (ver ARCHITECTURE.md, "Contenedor y ancho máximo")
+- [ ] Redefinir el ritmo de fondos según el mapa de bloques de ARCHITECTURE.md (cambia cada 2 secciones, incluye el oscuro `#091821`)
+### Navbar
+- [ ] Centrar los labels de navegación
+- [ ] Aplicar el mismo padding/margin lateral general
+- [ ] Agregar botón "Contactanos" con flecha al final
+- [ ] Estado en el tope del Hero: transparente / leve sombreado
+- [ ] Estado con scroll: flotante (despegado de bordes), fondo oscuro con blur, esquinas redondeadas
+### Hero
+- [ ] Quitar los dos botones (CTA primario/secundario)
+- [ ] Quitar el placeholder de imagen 3D actual (queda a la espera de la imagen final)
+- [ ] Centrar título y descripción
+- [ ] Agregar blobs pequeños flotantes como capa decorativa adicional
+### Hero → Why Apside
+- [ ] Implementar transición pineada con crossfade (ver ARCHITECTURE.md, sección de animaciones): el contenido del Hero desaparece mientras aparece Why Apside
+### Why Apside
+- [ ] Quitar el texto "Creamos lo que imaginás"
+- [ ] "¿Por qué Apside?" pasa a ser el título de la sección (mismo color actual)
+- [ ] Agregar animación de flotación al placeholder de la ilustración 3D
+- [ ] Quitar botón "Conocé nuestro proceso"
+### Team
+- [ ] Fondo oscuro (bloque 2 del mapa de fondos)
+- [ ] Reducir tamaño de las cards
+- [ ] Quitar las características/aptitudes de cada miembro (evaluar si se elimina el campo `traits` del schema o se deja sin mostrar)
+### Clients
+- [ ] Agregar campo `description` al schema de la colección (ver ARCHITECTURE.md)
+- [ ] Mostrar la descripción corta debajo de cada logo (ej. "Landing page para metalúrgica")
+### Process
+- [ ] Reducir la altura vertical general de la sección
+### Why Choose Us
+- [ ] Cambiar proporción de las cards: más altas que anchas
+### Services
+- [ ] Rediseñar `ServiceCard.astro`: menos información visible, diseño más simple y atractivo
+- [ ] Definir 2-3 referencias visuales con el usuario antes de reimplementar
+### FAQ
+- [ ] Separar visualmente cada `FaqItem` (actualmente se perciben como un bloque único)
+## PHASE 16 — SEO
 - [ ] Meta tags finales (title, description, OG)
 - [ ] Verificar jerarquía de headings
 - [ ] `alt` en todas las imágenes
 - [ ] Sitemap y `robots.txt`
-
-## PHASE 16 — Performance
+## PHASE 17 — Performance
 - [ ] Auditoría Lighthouse
 - [ ] Optimización de imágenes (`astro:assets`, formatos modernos)
 - [ ] Revisión de peso de fuentes y GSAP en el bundle final
-
-## PHASE 17 — Final QA
+## PHASE 18 — Final QA
 - [ ] Revisión de contraste de colores (accesibilidad)
 - [ ] Navegación completa por teclado
 - [ ] Revisión de copy final (sin lorem ipsum ni placeholders de texto)

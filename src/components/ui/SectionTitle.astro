@@ -4,6 +4,7 @@ interface Props {
 	title: string;
 	subtitle?: string;
 	align?: "left" | "center";
+	tone?: "default" | "light";
 	class?: string;
 }
 
@@ -12,6 +13,7 @@ const {
 	title,
 	subtitle,
 	align = "center",
+	tone = "default",
 	class: className = "",
 } = Astro.props;
 
@@ -19,6 +21,10 @@ const alignment =
 	align === "center"
 		? "mx-auto items-center text-center"
 		: "items-start text-left";
+
+const titleClasses = tone === "light" ? "text-white" : "text-ink";
+const subtitleClasses =
+	tone === "light" ? "text-white/70" : "text-ink/70";
 ---
 
 <header
@@ -30,6 +36,6 @@ const alignment =
 			{eyebrow}
 		</p>
 	)}
-	<h2 class="text-h2">{title}</h2>
-	{subtitle && <p class="text-ink/70">{subtitle}</p>}
+	<h2 class={`text-h2 ${titleClasses}`}>{title}</h2>
+	{subtitle && <p class={subtitleClasses}>{subtitle}</p>}
 </header>

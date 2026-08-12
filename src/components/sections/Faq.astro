@@ -9,7 +9,7 @@ const faqItems = (await getCollection("faq")).sort(
 );
 ---
 
-<section id="faq" class="relative scroll-mt-24 overflow-hidden bg-soft">
+<section id="faq" class="relative scroll-mt-24 overflow-hidden bg-primary/5">
 	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
 		<SectionTitle
 			title="Preguntas frecuentes"
@@ -25,5 +25,5 @@ const faqItems = (await getCollection("faq")).sort(
 			))}
 		</div>
 	</div>
-	<Wave color="white" class="absolute inset-x-0 bottom-0" />
+	<Wave color="ink" class="absolute inset-x-0 bottom-0" />
 </section>

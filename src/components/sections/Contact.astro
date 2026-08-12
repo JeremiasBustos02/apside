@@ -29,7 +29,7 @@ const iconPaths: Record<string, string[]> = {
 
 <section
 	id="contacto"
-	class="relative scroll-mt-24 overflow-hidden bg-white pb-section pt-section"
+	class="relative scroll-mt-24 overflow-hidden bg-ink pb-section pt-section"
 >
 	<Blob
 		color="secondary"
@@ -63,12 +63,12 @@ const iconPaths: Record<string, string[]> = {
 		<div class="flex flex-col gap-8" data-reveal>
 			<div class="flex flex-col gap-4">
 				<p
-					class="font-sans text-small font-semibold uppercase tracking-widest text-primary"
+					class="font-sans text-small font-semibold uppercase tracking-widest text-secondary"
 				>
 					{contact.eyebrow}
 				</p>
-				<h2 class="font-display text-h2 text-ink">{contact.title}</h2>
-				<p class="max-w-xl text-body text-ink/80">{contact.description}</p>
+				<h2 class="font-display text-h2 text-white">{contact.title}</h2>
+				<p class="max-w-xl text-body text-white/80">{contact.description}</p>
 			</div>
 
 			<ul class="flex flex-col gap-3">
@@ -117,7 +117,7 @@ const iconPaths: Record<string, string[]> = {
 		<form
 			action="https://formspree.io/f/YOUR_FORM_ID"
 			method="POST"
-			class="flex flex-col gap-5 rounded-card border border-soft bg-soft/40 p-card shadow-sm"
+			class="flex flex-col gap-5 rounded-card border border-soft bg-white p-card shadow-sm"
 			data-reveal
 		>
 			<input type="hidden" name="_next" value="/" />

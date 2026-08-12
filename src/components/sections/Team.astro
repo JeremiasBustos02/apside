@@ -19,13 +19,14 @@ const renderedModals = await Promise.all(
 
 <section
 	id="equipo"
-	class="relative scroll-mt-24 overflow-hidden bg-white"
+	class="relative scroll-mt-24 overflow-hidden bg-ink"
 >
 	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
 		<SectionTitle
 			title="Equipo"
 			subtitle="El equipo detrás de Apside"
 			align="center"
+			tone="light"
 		/>
 		<div class="mt-block grid grid-cols-1 gap-card sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
 			{teamMembers.map((member) => (
@@ -52,6 +53,4 @@ const renderedModals = await Promise.all(
 			<Content />
 		</TeamModal>
 	))}
-
-	<Wave color="soft" class="absolute inset-x-0 bottom-0" />
 </section>

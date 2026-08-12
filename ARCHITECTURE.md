@@ -93,9 +93,7 @@ Secciones que van acá: `hero.ts`, `why-apside.ts`, `why-choose-us-intro.ts`, `p
 
 ### 3.2 Colecciones repetibles (Astro Content Collections)
 
-Para todo lo que es una lista de ítems del mismo tipo, se usan **Content Collections** con schema validado en `src/content.config.ts` (Zod). Cada ítem es un archivo individual, no un array dentro de un solo archivo.
-
-> **Nota (Astro v7):** el proyecto usa el **Content Layer API** de Astro (v6+), con colecciones definidas en `src/content.config.ts` y cargadas con el loader `glob()` desde `astro/loaders`. Es el reemplazo del patrón legacy (`src/content/config.ts` + `type: "content"`) que Astro dejó de soportar. La estructura de archivos por colección es idéntica; solo cambia el archivo de configuración y el loader.
+Para todo lo que es una lista de ítems del mismo tipo, se usan **Content Collections** con schema validado en `src/content/config.ts` (Zod). Cada ítem es un archivo individual, no un array dentro de un solo archivo.
 
 ```
 src/content/
@@ -126,13 +124,11 @@ src/content/
 Schema de ejemplo para equipo:
 
 ```ts
-// src/content.config.ts
-import { defineCollection } from "astro:content";
-import { z } from "astro/zod";
-import { glob } from "astro/loaders";
+// src/content/config.ts
+import { defineCollection, z } from "astro:content";
 
 const team = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/team" }),
+  type: "content",
   schema: z.object({
     name: z.string(),
     role: z.string(),
@@ -152,7 +148,20 @@ export const collections = { team /*, clients, services, process, whyUs, faq */ 
 - Jeremías Bustos — Desarrollador
 - Gerónimo Lombardo — Diseñador Gráfico
 
-**Clientes:** por ahora placeholders. Cada entrada tiene un campo `url` que, cuando exista el cliente real, apunta a la página que se le hizo (`ClientBadge.astro` linkea ahí; mientras no exista, apunta a `#` o queda deshabilitado visualmente).
+**Clientes:** por ahora placeholders. Cada entrada tiene un campo `url` que, cuando exista el cliente real, apunta a la página que se le hizo (`ClientBadge.astro` linkea ahí; mientras no exista, apunta a `#` o queda deshabilitado visualmente). Además, cada entrada tiene un campo `description` con una frase corta sobre el trabajo hecho para ese cliente (ej. "Landing page para metalúrgica"), que se muestra debajo del logo.
+
+```ts
+const clients = defineCollection({
+  type: "content",
+  schema: z.object({
+    name: z.string(),
+    logo: z.string(),
+    description: z.string(),   // ej: "Landing page para metalúrgica"
+    url: z.string().optional(),
+    order: z.number(),
+  }),
+});
+```
 
 ## 4. Estrategia responsive
 
@@ -167,8 +176,10 @@ export const collections = { team /*, clients, services, process, whyUs, faq */ 
 
 Alcance de GSAP por sección:
 
-- **Hero:** entrada suave del texto y de la persona 3D; flotación vertical continua sutil; parallax leve al hacer scroll.
-- **Why Apside:** reveal on scroll del texto y la ilustración.
+- **Navbar (scroll-linked, no ScrollTrigger de sección):** en el tope de la página (dentro del Hero) el navbar es transparente, sin fondo sólido. Al hacer scroll, se despega de los bordes superior y laterales (queda flotante, con margen), toma fondo oscuro (`#091821`) con `backdrop-filter: blur(...)` y esquinas redondeadas. Es una transición de estado ligada a la posición de scroll, no una animación de entrada única.
+- **Hero → Why Apside (transición pineada):** al hacer scroll desde el Hero, el contenido del Hero se desvanece mientras aparece el contenido de Why Apside en su lugar (pin del contenedor + crossfade con ScrollTrigger, distancia de scroll fija). Este patrón es específico de esta transición; el resto de las secciones usa el reveal on scroll estándar descripto abajo, no pin.
+- **Hero:** entrada suave del texto y de la persona 3D; flotación vertical continua sutil; parallax leve al hacer scroll; blobs pequeños flotantes como capa decorativa adicional (parallax propio, distinto al de la ilustración principal).
+- **Why Apside:** reveal on scroll del texto; flotación continua sutil de la ilustración/placeholder 3D (misma lógica de flotación que en el Hero, pero independiente).
 - **Team:** hover/tap en cards; apertura de modal (backdrop fade, scale 0.95→1, foto y texto con leve delay entre sí).
 - **Process:** progreso de la línea de tiempo ligado al scroll (ScrollTrigger).
 - **Why Choose Us:** flip cards (hover en desktop, tap en mobile).
@@ -176,18 +187,6 @@ Alcance de GSAP por sección:
 - **Elementos decorativos** (blobs, círculos): parallax a distinta velocidad entre capas.
 
 **Accesibilidad de movimiento:** todo lo anterior debe respetar `prefers-reduced-motion: reduce` — en ese caso se elimina el parallax y la flotación continua, y los reveals pasan a ser instantáneos o con fade muy corto sin desplazamiento.
-
-**Implementación actual (Fase 13):** los scripts viven en `src/scripts/` (maestro `animations.ts` importado en `index.astro`) y se organizan por responsabilidad:
-
-- `gsap-init.ts` — registra `ScrollTrigger` y re-exporta `gsap`.
-- `hero.ts` — timeline de entrada (título, subtítulo, CTAs desde eje y, visual desde x) con `gsap.matchMedia()`; flotación vertical continua del visual (`yoyo repeat -1`).
-- `reveal.ts` — `[data-reveal]` (elemento suelto) y `[data-reveal-group]` (stagger de hijos) con ScrollTrigger `start: "top 85%"`.
-- `decorations.ts` — parallax por scroll en `[data-parallax]`, velocidad leída de `data-parallax` (0.2–0.6), `scrub: true`.
-- `process.ts` — línea de timeline crece con `scaleY` + `scrub`, nodos con `back.out`, cards con reveal.
-- `team.ts` — reemplaza el JS vanilla de Team.astro: apertura/cierre del modal con fade de backdrop + `scale 0.95→1`, focus management, cierre con Esc, hover de cards (`data-team-card`).
-- `flipcard.ts` — flip 3D con GSAP (click/tap) en `.flip-inner`; bajo `prefers-reduced-motion: reduce` la vuelta se aplica por CSS (`[data-flipped="true"]`).
-
-Convenciones: cada módulo usa `gsap.matchMedia()` (`mm.add("(prefers-reduced-motion: no-preference)")`) para desactivar parallax/flotación/reveals desplazados bajo `reduce`. Selectores basados en atributos `data-*` añadidos en los componentes (nunca en clases utilitarias).
 
 ## 6. SEO
 
@@ -235,48 +234,23 @@ Los SVG decorativos (blobs, ondas, círculos) **no** van en `public/`, sino inli
 
 Distribución aproximada: ~60% blanco/`#E8EEF1`, ~20% `#091821`, ~10% `#4E82A2`, ~5% `#ACCC8E`, ~5% `#FEDA3D`.
 
-**Sin modo oscuro** en esta versión del sitio — la paleta está pensada para fondo claro.
+**Sin modo oscuro** en esta versión del sitio — la paleta está pensada para fondo claro, con el oscuro usado puntualmente como fondo de sección (ver "Ritmo de fondos" abajo).
 
 **Regla de transiciones entre secciones:** ninguna sección termina con un borde/línea recta horizontal. Toda transición usa `Wave.astro` (ondas estáticas) o superposición de `Blob.astro`/`DecorativeCircle.astro`. Esto es una regla de diseño no negociable del proyecto, no un detalle estético opcional.
 
-### 10.1 Design tokens (Tailwind v4, `src/styles/theme.css`)
+**Contenedor y ancho máximo:** todo el contenido de la página vive dentro de un contenedor con `max-width` (no full-bleed) y padding lateral consistente, definido una sola vez (ej. una clase utilitaria `.container-apside` o el `container` de Tailwind con los breakpoints configurados). El mismo padding lateral se aplica al Navbar. Esto evita que la página se sienta demasiado ancha/expandida en pantallas grandes.
 
-Los tokens viven en `@theme static` (emisión forzada en `:root`) y generan utilities de Tailwind v4.
+**Ritmo de fondos:** el fondo no alterna en cada sección — cambia cada dos secciones, agrupadas en bloques, para evitar el efecto "cebra" y darle más variedad de tono (incluyendo el color oscuro de la paleta, no solo claros):
 
-**Escala tipográfica** — `font-display` (Dx Figgle) para headings, `font-sans` (Poppins) para cuerpo:
-
-| Token | Tamaño | Uso |
+| Bloque | Secciones | Fondo |
 |---|---|---|
-| `text-display` | `clamp(3.25rem, 9vw, 5.5rem)` | Hero principal |
-| `text-h1` | `clamp(2.5rem, 6vw, 3.75rem)` | Título página / sección destacada |
-| `text-h2` | `clamp(2rem, 4.5vw, 2.75rem)` | Título de sección |
-| `text-h3` | `clamp(1.5rem, 3vw, 1.875rem)` | Sub-ítems (servicios, equipo) |
-| `text-h4` | `1.25rem` | Títulos menores |
-| `text-body` | `1.0625rem / 1.7` | Texto de párrafo |
-| `text-small` | `0.875rem` | Texto secundario |
-| `text-caption` | `0.75rem` | Labels / meta |
+| 1 | Hero, Why Apside | Claro (`#E8EEF1` / blanco) |
+| 2 | Team, Clients | Oscuro (`#091821`) |
+| 3 | Process, Why Choose Us | Claro (`#E8EEF1` / blanco) |
+| 4 | Services, FAQ | Tinte suave de `#4E82A2` o blanco, a definir en la revisión visual |
+| 5 | Contact, Footer | Oscuro (`#091821`) |
 
-**Spacing semántico** — usa el namespace `--spacing-*` (genera `p-section`, `gap-gutter`, etc.):
-
-`section` 7rem (padding vertical de secciones), `block` 4rem (separación entre bloques), `card` 2rem (padding de cards), `gutter` 1.5rem (gap estándar), `tight` 1rem, `nudge` 0.375rem.
-
-**Radios de borde** — `--radius-*` (genera `rounded-*`):
-
-`sm` 0.5rem, `md` 0.75rem, `lg` 1rem, `xl` 1.5rem, `card` 2rem (cards/blobs), `pill` 999px (botones, pills).
-
-**Contenedor:** `max-w-content` = `80rem` (~1280px) para el ancho de página.
-
-Los estilos base (`global.css` → `@layer base`) aplican la escala a elementos semánticos: `h1`→`h4` usan `font-display`, `body/p` usan `font-sans` + `text-ink`. Para marcas concretas de texto dentro de componentes, usar las utilities por token.
-
-### 10.2 Componentes `ui/` (base, sin animación)
-
-| Componente | Props | Notas |
-|---|---|---|
-| `Button` | `variant?: primary \| secondary`, `href?`, `type?`, `disabled?`, slot para contenido | Render como `<a>` si `href`, si no `<button>`. Pill, focus-visible con outline accent. |
-| `SectionTitle` | `eyebrow?`, `title`, `subtitle?`, `align?: left \| center` | `h2` + opcional eyebrow (uppercase) y subtítulo. |
-| `Blob` | `color?: primary\|secondary\|accent\|soft\|ink`, `size?` (px), `position?` (clases de posicionamiento), `class?` | SVG inline con `fill: currentColor`, `aria-hidden`; sin animación. |
-| `Wave` | `color?`, `flip?` (rota 180º), `class?` | SVG `preserveAspectRatio="none"`, ancho 100%, altura 120; para transiciones entre secciones. |
-| `DecorativeCircle` | `color?`, `size?` (px), `ring?` (borde en vez de relleno), `position?`, `class?` | `div` circular, `aria-hidden`. |
+Este mapa de bloques es la base de partida; se puede ajustar en la fase de revisión visual, pero cualquier cambio se actualiza acá.
 
 ## 11. Dependencias
 

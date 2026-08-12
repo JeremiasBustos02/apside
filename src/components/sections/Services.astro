@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
-import Wave from "../ui/Wave.astro";
 import ServiceCard from "../services/ServiceCard.astro";
 
 const services = (await getCollection("services")).sort(
@@ -11,7 +10,7 @@ const services = (await getCollection("services")).sort(
 
 <section
 	id="servicios"
-	class="relative scroll-mt-24 overflow-hidden bg-white"
+	class="relative scroll-mt-24 overflow-hidden bg-primary/5"
 >
 	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
 		<SectionTitle
@@ -35,5 +34,4 @@ const services = (await getCollection("services")).sort(
 			))}
 		</div>
 	</div>
-	<Wave color="soft" class="absolute inset-x-0 bottom-0" />
 </section>

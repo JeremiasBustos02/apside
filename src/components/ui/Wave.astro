@@ -1,6 +1,6 @@
 ---
 interface Props {
-	color?: "white" | "soft" | "primary" | "secondary" | "ink";
+	color?: "white" | "soft" | "primary" | "secondary" | "ink" | "tint";
 	flip?: boolean;
 	class?: string;
 }
@@ -13,6 +13,7 @@ const colorClasses = {
 	primary: "text-primary",
 	secondary: "text-secondary",
 	ink: "text-ink",
+	tint: "text-primary/5",
 } as const;
 ---
 
