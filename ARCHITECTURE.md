@@ -227,6 +227,45 @@ Distribución aproximada: ~60% blanco/`#E8EEF1`, ~20% `#091821`, ~10% `#4E82A2`,
 
 **Regla de transiciones entre secciones:** ninguna sección termina con un borde/línea recta horizontal. Toda transición usa `Wave.astro` (ondas estáticas) o superposición de `Blob.astro`/`DecorativeCircle.astro`. Esto es una regla de diseño no negociable del proyecto, no un detalle estético opcional.
 
+### 10.1 Design tokens (Tailwind v4, `src/styles/theme.css`)
+
+Los tokens viven en `@theme static` (emisión forzada en `:root`) y generan utilities de Tailwind v4.
+
+**Escala tipográfica** — `font-display` (Dx Figgle) para headings, `font-sans` (Poppins) para cuerpo:
+
+| Token | Tamaño | Uso |
+|---|---|---|
+| `text-display` | `clamp(3.25rem, 9vw, 5.5rem)` | Hero principal |
+| `text-h1` | `clamp(2.5rem, 6vw, 3.75rem)` | Título página / sección destacada |
+| `text-h2` | `clamp(2rem, 4.5vw, 2.75rem)` | Título de sección |
+| `text-h3` | `clamp(1.5rem, 3vw, 1.875rem)` | Sub-ítems (servicios, equipo) |
+| `text-h4` | `1.25rem` | Títulos menores |
+| `text-body` | `1.0625rem / 1.7` | Texto de párrafo |
+| `text-small` | `0.875rem` | Texto secundario |
+| `text-caption` | `0.75rem` | Labels / meta |
+
+**Spacing semántico** — usa el namespace `--spacing-*` (genera `p-section`, `gap-gutter`, etc.):
+
+`section` 7rem (padding vertical de secciones), `block` 4rem (separación entre bloques), `card` 2rem (padding de cards), `gutter` 1.5rem (gap estándar), `tight` 1rem, `nudge` 0.375rem.
+
+**Radios de borde** — `--radius-*` (genera `rounded-*`):
+
+`sm` 0.5rem, `md` 0.75rem, `lg` 1rem, `xl` 1.5rem, `card` 2rem (cards/blobs), `pill` 999px (botones, pills).
+
+**Contenedor:** `max-w-content` = `80rem` (~1280px) para el ancho de página.
+
+Los estilos base (`global.css` → `@layer base`) aplican la escala a elementos semánticos: `h1`→`h4` usan `font-display`, `body/p` usan `font-sans` + `text-ink`. Para marcas concretas de texto dentro de componentes, usar las utilities por token.
+
+### 10.2 Componentes `ui/` (base, sin animación)
+
+| Componente | Props | Notas |
+|---|---|---|
+| `Button` | `variant?: primary \| secondary`, `href?`, `type?`, `disabled?`, slot para contenido | Render como `<a>` si `href`, si no `<button>`. Pill, focus-visible con outline accent. |
+| `SectionTitle` | `eyebrow?`, `title`, `subtitle?`, `align?: left \| center` | `h2` + opcional eyebrow (uppercase) y subtítulo. |
+| `Blob` | `color?: primary\|secondary\|accent\|soft\|ink`, `size?` (px), `position?` (clases de posicionamiento), `class?` | SVG inline con `fill: currentColor`, `aria-hidden`; sin animación. |
+| `Wave` | `color?`, `flip?` (rota 180º), `class?` | SVG `preserveAspectRatio="none"`, ancho 100%, altura 120; para transiciones entre secciones. |
+| `DecorativeCircle` | `color?`, `size?` (px), `ring?` (borde en vez de relleno), `position?`, `class?` | `div` circular, `aria-hidden`. |
+
 ## 11. Dependencias
 
 Cualquier dependencia nueva (más allá de Astro, Tailwind, GSAP y lo estrictamente necesario para Content Collections/Zod) debe agregarse acá con: nombre, qué problema resuelve, por qué se eligió sobre alternativas.

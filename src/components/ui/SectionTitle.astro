@@ -1,0 +1,32 @@
+---
+interface Props {
+	eyebrow?: string;
+	title: string;
+	subtitle?: string;
+	align?: "left" | "center";
+	class?: string;
+}
+
+const {
+	eyebrow,
+	title,
+	subtitle,
+	align = "center",
+	class: className = "",
+} = Astro.props;
+
+const alignment =
+	align === "center"
+		? "mx-auto items-center text-center"
+		: "items-start text-left";
+---
+
+<header class:list={["flex max-w-3xl flex-col gap-4", alignment, className]}>
+	{eyebrow && (
+		<p class="font-sans text-small font-semibold uppercase tracking-widest text-primary">
+			{eyebrow}
+		</p>
+	)}
+	<h2 class="text-h2">{title}</h2>
+	{subtitle && <p class="text-ink/70">{subtitle}</p>}
+</header>

@@ -1,0 +1,43 @@
+---
+interface Props {
+	color?: "primary" | "secondary" | "accent" | "soft" | "ink";
+	size?: number;
+	ring?: boolean;
+	position?: string;
+	class?: string;
+}
+
+const {
+	color = "secondary",
+	size = 96,
+	ring = false,
+	position = "",
+	class: className = "",
+} = Astro.props;
+
+const fillClasses = {
+	primary: "bg-primary",
+	secondary: "bg-secondary",
+	accent: "bg-accent",
+	soft: "bg-soft",
+	ink: "bg-ink",
+} as const;
+
+const ringClasses = {
+	primary: "border-primary",
+	secondary: "border-secondary",
+	accent: "border-accent",
+	soft: "border-soft",
+	ink: "border-ink",
+} as const;
+---
+
+<div
+	class:list={[
+		ring ? `border-2 ${ringClasses[color]}` : fillClasses[color],
+		position,
+		className,
+	]}
+	aria-hidden="true"
+	style={{ width: `${size}px`, height: `${size}px` }}
+></div>

@@ -12,11 +12,11 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Configurar `src/content.config.ts` con los schemas de las colecciones
 
 ## PHASE 1 — Design system
-- [ ] Definir escala tipográfica (tamaños de `h1` a `p`, ambas fuentes)
-- [ ] Definir escala de spacing y radios de borde
-- [ ] Construir `Button.astro` (variantes primario/secundario)
-- [ ] Construir `SectionTitle.astro`
-- [ ] Construir `Blob.astro`, `Wave.astro`, `DecorativeCircle.astro` (versiones base, sin animación)
+- [x] Definir escala tipográfica (tamaños de `h1` a `p`, ambas fuentes)
+- [x] Definir escala de spacing y radios de borde
+- [x] Construir `Button.astro` (variantes primario/secundario)
+- [x] Construir `SectionTitle.astro`
+- [x] Construir `Blob.astro`, `Wave.astro`, `DecorativeCircle.astro` (versiones base, sin animación)
 
 ## PHASE 2 — Layout
 - [ ] `Layout.astro` con meta tags base

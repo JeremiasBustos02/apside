@@ -1,0 +1,48 @@
+---
+interface Props {
+	variant?: "primary" | "secondary";
+	href?: string;
+	type?: "button" | "submit" | "reset";
+	disabled?: boolean;
+	class?: string;
+	"aria-label"?: string;
+}
+
+const {
+	variant = "primary",
+	href,
+	type = "button",
+	disabled = false,
+	class: className = "",
+	"aria-label": ariaLabel,
+} = Astro.props;
+
+const baseClasses =
+	"inline-flex items-center justify-center gap-2 rounded-pill px-6 py-3 font-sans font-semibold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-50";
+
+const variantClasses = {
+	primary:
+		"bg-primary text-white hover:bg-primary/90 shadow-sm hover:shadow-md shadow-primary/10",
+	secondary:
+		"border-2 border-primary/30 text-primary hover:border-primary hover:bg-primary/5",
+} as const;
+
+const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;
+---
+
+{
+	href ? (
+		<a
+			href={href}
+			class={classes}
+			aria-label={ariaLabel}
+			{...(disabled ? { "aria-disabled": true } : {})}
+		>
+			<slot />
+		</a>
+	) : (
+		<button type={type} class={classes} disabled={disabled} aria-label={ariaLabel}>
+			<slot />
+		</button>
+	)
+}
