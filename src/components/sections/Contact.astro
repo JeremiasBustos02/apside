@@ -1,7 +1,184 @@
 ---
-import SectionTitle from "../ui/SectionTitle.astro";
+import { contact } from "../../content/sections/contact";
+import Button from "../ui/Button.astro";
+import Blob from "../ui/Blob.astro";
+import DecorativeCircle from "../ui/DecorativeCircle.astro";
+
+const iconPaths: Record<string, string[]> = {
+	mail: [
+		'<rect width="20" height="16" x="2" y="4" rx="2" />',
+		'<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />',
+	],
+	whatsapp: [
+		'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />',
+		'<path d="M8 12a5 5 0 0 0 4 4c.8 0 1.5-.3 2-.8" />',
+		'<path d="M9.5 9.5c.5-1 .5-1.5 1-1.5s1 1.5 1.5 1.5.5.5 1 0 0-1 0-1-1.5-1.5-2.5-1-1.5 1.5-1 1.5 1-.5 2 .5" />',
+	],
+	instagram: [
+		'<rect width="20" height="20" x="2" y="2" rx="5" ry="5" />',
+		'<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />',
+		'<line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />',
+	],
+	linkedin: [
+		'<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />',
+		'<rect width="4" height="12" x="2" y="9" />',
+		'<circle cx="4" cy="4" r="2" />',
+	],
+};
 ---
 
-<section id="contacto" class="scroll-mt-24">
-	<SectionTitle title="Contacto" align="left" class="px-gutter" />
+<section
+	id="contacto"
+	class="relative scroll-mt-24 overflow-hidden bg-white pb-section pt-section"
+>
+	<Blob
+		color="secondary"
+		size={360}
+		class="absolute -right-24 top-1/4 opacity-10"
+	/>
+	<Blob
+		color="primary"
+		size={260}
+		class="absolute -left-20 bottom-1/4 opacity-10"
+	/>
+	<DecorativeCircle
+		color="accent"
+		size={56}
+		ring
+		position="absolute left-[10%] top-[8%]"
+	/>
+	<DecorativeCircle
+		color="primary"
+		size={40}
+		position="absolute right-[8%] bottom-[10%]"
+	/>
+
+	<div
+		class="relative mx-auto grid max-w-content grid-cols-1 items-start gap-16 px-gutter md:grid-cols-[1fr_1.2fr]"
+	>
+		<div class="flex flex-col gap-8">
+			<div class="flex flex-col gap-4">
+				<p
+					class="font-sans text-small font-semibold uppercase tracking-widest text-primary"
+				>
+					{contact.eyebrow}
+				</p>
+				<h2 class="font-display text-h2 text-ink">{contact.title}</h2>
+				<p class="max-w-xl text-body text-ink/80">{contact.description}</p>
+			</div>
+
+			<ul class="flex flex-col gap-3">
+				{contact.channels.map((channel) => (
+					<li>
+						<a
+							href={channel.href}
+							target={channel.href.startsWith("http") ? "_blank" : undefined}
+							rel={
+								channel.href.startsWith("http")
+									? "noopener noreferrer"
+									: undefined
+							}
+							class="group flex items-center gap-4 rounded-card border border-soft bg-white p-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent hover:border-primary/30"
+						>
+<span
+							class="flex size-11 shrink-0 items-center justify-center rounded-full bg-soft text-primary"
+							aria-hidden="true"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								class="size-5"
+								set:html={iconPaths[channel.icon].join("")}
+							></svg>
+						</span>
+							<span class="flex flex-col">
+								<span class="text-caption font-semibold uppercase tracking-widest text-ink/60">
+									{channel.label}
+								</span>
+								<span class="text-body font-medium text-ink group-hover:text-primary">
+									{channel.value}
+								</span>
+							</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
+
+		<form
+			action="https://formspree.io/f/YOUR_FORM_ID"
+			method="POST"
+			class="flex flex-col gap-5 rounded-card border border-soft bg-soft/40 p-card shadow-sm"
+		>
+			<input type="hidden" name="_next" value="/" />
+
+			<div class="flex flex-col gap-2">
+				<label for="nombre" class="text-small font-medium text-ink">
+					Nombre
+				</label>
+				<input
+					id="nombre"
+					name="nombre"
+					type="text"
+					required
+					placeholder="Tu nombre"
+					class="rounded-lg border border-soft bg-white px-4 py-3 text-body text-ink transition-colors placeholder:text-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+				/>
+			</div>
+
+			<div class="flex flex-col gap-2">
+				<label for="email" class="text-small font-medium text-ink">
+					Email
+				</label>
+				<input
+					id="email"
+					name="email"
+					type="email"
+					required
+					placeholder="tucorreo@ejemplo.com"
+					class="rounded-lg border border-soft bg-white px-4 py-3 text-body text-ink transition-colors placeholder:text-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+				/>
+			</div>
+
+			<div class="flex flex-col gap-2">
+				<label for="servicio" class="text-small font-medium text-ink">
+					Qué necesitás
+				</label>
+				<select
+					id="servicio"
+					name="servicio"
+					required
+					class="rounded-lg border border-soft bg-white px-4 py-3 text-body text-ink transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+				>
+					<option value="" disabled selected>
+						Elegí una opción
+					</option>
+					{contact.serviceOptions.map((option) => (
+						<option value={option}>{option}</option>
+					))}
+				</select>
+			</div>
+
+			<div class="flex flex-col gap-2">
+				<label for="mensaje" class="text-small font-medium text-ink">
+					Mensaje
+				</label>
+				<textarea
+					id="mensaje"
+					name="mensaje"
+					rows={4}
+					required
+					placeholder="Contanos un poco sobre tu proyecto..."
+					class="resize-none rounded-lg border border-soft bg-white px-4 py-3 text-body text-ink transition-colors placeholder:text-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+				></textarea>
+			</div>
+
+			<Button type="submit">Enviar mensaje</Button>
+		</form>
+	</div>
 </section>

@@ -68,10 +68,10 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] `FaqItem.astro` como acordeón accesible
 
 ## PHASE 11 — Contact
-- [ ] Contenido en `src/content/sections/contact.ts`
-- [ ] Formulario (nombre, email, qué necesitás, mensaje)
-- [ ] Enlaces directos (WhatsApp, email, Instagram, LinkedIn)
-- [ ] Definir a dónde envía el formulario (servicio de forms / backend / mailto)
+- [x] Contenido en `src/content/sections/contact.ts`
+- [x] Formulario (nombre, email, qué necesitás, mensaje)
+- [x] Enlaces directos (WhatsApp, email, Instagram, LinkedIn)
+- [x] Formulario configurado para enviar a Formspree (`action="https://formspree.io/f/YOUR_FORM_ID"`)
 
 ## PHASE 12 — Footer
 - [ ] Contenido en `src/content/sections/footer.ts`
