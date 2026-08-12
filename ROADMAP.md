@@ -80,20 +80,20 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Año dinámico en el copyright
 
 ## PHASE 13 — Animations (GSAP)
-- [ ] Instalar GSAP + ScrollTrigger, documentar en `ARCHITECTURE.md`
-- [ ] Hero: entrada, flotación, parallax
-- [ ] Why Apside: reveal on scroll
-- [ ] Team: hover de card, animación de apertura de modal
-- [ ] Process: progreso de timeline ligado a scroll
-- [ ] Why Choose Us: flip cards
-- [ ] Reveal on scroll en el resto de las secciones
-- [ ] Parallax en elementos decorativos
-- [ ] Soporte para `prefers-reduced-motion`
+- [x] Instalar GSAP + ScrollTrigger, documentar en `ARCHITECTURE.md`
+- [x] Hero: entrada, flotación, parallax
+- [x] Why Apside: reveal on scroll
+- [x] Team: hover de card, animación de apertura de modal
+- [x] Process: progreso de timeline ligado a scroll
+- [x] Why Choose Us: flip cards
+- [x] Reveal on scroll en el resto de las secciones
+- [x] Parallax en elementos decorativos
+- [x] Soporte para `prefers-reduced-motion`
 
 ## PHASE 14 — Responsive
-- [ ] Revisión completa mobile / tablet / desktop, sección por sección
-- [ ] Ajuste especial de Process en mobile (timeline simplificada)
-- [ ] Ajuste de tamaño/posición del PNG 3D en mobile
+- [x] Revisión completa mobile / tablet / desktop, sección por sección
+- [x] Ajuste especial de Process en mobile (timeline simplificada)
+- [x] Ajuste de tamaño/posición del PNG 3D en mobile
 
 ## PHASE 15 — SEO
 - [ ] Meta tags finales (title, description, OG)

@@ -4,6 +4,7 @@ interface Props {
 	size?: number;
 	position?: string;
 	class?: string;
+	parallax?: number;
 }
 
 const {
@@ -11,6 +12,7 @@ const {
 	size = 320,
 	position = "",
 	class: className = "",
+	parallax,
 } = Astro.props;
 
 const colorClasses = {
@@ -26,6 +28,7 @@ const colorClasses = {
 	class:list={[position, className]}
 	aria-hidden="true"
 	style={{ width: `${size}px`, height: `${size}px` }}
+	{...(parallax !== undefined ? { "data-parallax": String(parallax) } : {})}
 >
 	<svg
 		viewBox="0 0 200 200"

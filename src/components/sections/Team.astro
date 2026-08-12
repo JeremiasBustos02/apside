@@ -27,7 +27,7 @@ const renderedModals = await Promise.all(
 			subtitle="El equipo detrás de Apside"
 			align="center"
 		/>
-		<div class="mt-block grid grid-cols-1 gap-card sm:grid-cols-2 lg:grid-cols-3">
+		<div class="mt-block grid grid-cols-1 gap-card sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
 			{teamMembers.map((member) => (
 				<TeamCard
 					id={member.id}
@@ -54,58 +54,4 @@ const renderedModals = await Promise.all(
 	))}
 
 	<Wave color="soft" class="absolute inset-x-0 bottom-0" />
-
-	<script>
-		function openModal(id: string) {
-			const modal = document.querySelector<HTMLElement>(
-				`[data-team-modal="${CSS.escape(id)}"]`
-			);
-			if (!modal) return;
-			modal.classList.remove("hidden");
-			document.body.style.overflow = "hidden";
-			modal.querySelector<HTMLElement>("[data-team-close]")?.focus();
-		}
-
-		function closeModal(modal: HTMLElement) {
-			modal.classList.add("hidden");
-			document.body.style.overflow = "";
-			const id = modal.dataset.teamModal;
-			if (id) {
-				document
-					.querySelector<HTMLElement>(`[data-team-open="${CSS.escape(id)}"]`)
-					?.focus();
-			}
-		}
-
-		document.addEventListener("click", (e) => {
-			const openBtn = (e.target as HTMLElement).closest<HTMLElement>(
-				"[data-team-open]"
-			);
-			if (openBtn) {
-				openModal(openBtn.dataset.teamOpen ?? "");
-				return;
-			}
-			const closeBtn = (e.target as HTMLElement).closest<HTMLElement>(
-				"[data-team-close]"
-			);
-			const backdrop = (e.target as HTMLElement).closest<HTMLElement>(
-				"[data-team-backdrop]"
-			);
-			if (closeBtn || backdrop) {
-				const modal = (e.target as HTMLElement).closest<HTMLElement>(
-					"[data-team-modal]"
-				);
-				if (modal) closeModal(modal);
-			}
-		});
-
-		document.addEventListener("keydown", (e) => {
-			if (e.key === "Escape") {
-				const openModalEl = document.querySelector<HTMLElement>(
-					"[data-team-modal]:not(.hidden)"
-				);
-				if (openModalEl) closeModal(openModalEl);
-			}
-		});
-	</script>
 </section>

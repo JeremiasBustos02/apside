@@ -21,6 +21,7 @@ const reasons = (await getCollection("whyUs")).sort(
 		/>
 		<ul
 			class="mt-block grid grid-cols-1 gap-card md:grid-cols-2 lg:grid-cols-3"
+			data-reveal-group
 		>
 			{reasons.map((reason) => (
 				<li>
@@ -35,12 +36,3 @@ const reasons = (await getCollection("whyUs")).sort(
 	</div>
 	<Wave color="white" class="absolute inset-x-0 bottom-0" />
 </section>
-
-<script>
-	document.addEventListener("click", (event) => {
-		const toggle = (event.target as HTMLElement).closest("[data-flip-toggle]");
-		if (!toggle) return;
-		const inner = toggle.closest("[data-flip-inner]") as HTMLElement;
-		inner.dataset.flipped = inner.dataset.flipped === "true" ? "false" : "true";
-	});
-</script>

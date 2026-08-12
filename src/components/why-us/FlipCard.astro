@@ -10,13 +10,10 @@ interface Props {
 const { title, highlight, description } = Astro.props;
 ---
 
-<div
-	data-flip
-	class="group relative h-64 [perspective:1000px] lg:[perspective:1200px]"
->
+<div data-flip class="group relative h-72 [perspective:1000px] sm:h-64 lg:[perspective:1200px]">
 	<div
+		class="flip-inner relative h-full w-full [transform-style:preserve-3d]"
 		data-flip-inner
-		class="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] data-[flipped=true]:[transform:rotateY(180deg)]"
 	>
 		<button
 			type="button"
@@ -48,3 +45,11 @@ const { title, highlight, description } = Astro.props;
 		</div>
 	</div>
 </div>
+
+<style>
+	@media (prefers-reduced-motion: reduce) {
+		.flip-inner[data-flipped="true"] {
+			transform: rotateY(180deg);
+		}
+	}
+</style>

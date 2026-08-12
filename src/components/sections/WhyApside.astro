@@ -15,18 +15,20 @@ import Wave from "../ui/Wave.astro";
 		size={380}
 		position="absolute -right-24 top-1/2 -z-10"
 		class="opacity-15"
+		parallax={0.5}
 	/>
 	<DecorativeCircle
 		color="secondary"
 		size={120}
 		ring
 		position="absolute left-[6%] top-[10%] -z-10"
+		parallax={0.3}
 	/>
 
 	<div
-		class="mx-auto grid w-full max-w-content grid-cols-1 items-center gap-16 px-gutter pb-section pt-section md:grid-cols-[1.2fr_1fr]"
+		class="mx-auto grid w-full max-w-content grid-cols-1 items-center gap-10 px-gutter pb-section pt-section md:grid-cols-[1.2fr_1fr] md:gap-16"
 	>
-		<div class="flex flex-col items-start gap-6">
+		<div class="flex flex-col items-start gap-6" data-reveal>
 			<p
 				class="font-sans text-small font-semibold uppercase tracking-widest text-primary"
 			>
@@ -51,11 +53,11 @@ import Wave from "../ui/Wave.astro";
 		</div>
 
 		<div
-			class="relative flex aspect-square w-full max-w-md items-center justify-center justify-self-center rounded-card border-2 border-dashed border-primary/30 bg-white/60"
+			class="relative flex aspect-square w-full max-w-[260px] items-center justify-center justify-self-center rounded-card border-2 border-dashed border-primary/30 bg-white/60 sm:max-w-md"
 			role="img"
 			aria-label="Espacio reservado para la ilustración 3D"
 		>
-			<p class="text-small text-ink/40">Ilustración 3D pendiente</p>
+			<p class="px-4 text-center text-small text-ink/40">Ilustración 3D pendiente</p>
 		</div>
 	</div>
 

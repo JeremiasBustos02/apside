@@ -18,6 +18,7 @@ const clients = (await getCollection("clients")).sort(
 		/>
 		<ul
 			class="mt-block grid grid-cols-1 gap-card sm:grid-cols-2 lg:grid-cols-4"
+			data-reveal-group
 		>
 			{clients.map((client) => (
 				<li>

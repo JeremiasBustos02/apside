@@ -29,8 +29,8 @@
 	--text-caption--line-height: 1.4;
 
 	/* Espaciado semántico */
-	--spacing-section: 7rem;
-	--spacing-block: 4rem;
+	--spacing-section: clamp(4rem, 9vw, 7rem);
+	--spacing-block: clamp(3rem, 6.5vw, 4rem);
 	--spacing-card: 2rem;
 	--spacing-gutter: 1.5rem;
 	--spacing-tight: 1rem;

@@ -21,7 +21,10 @@ const alignment =
 		: "items-start text-left";
 ---
 
-<header class:list={["flex max-w-3xl flex-col gap-4", alignment, className]}>
+<header
+	class:list={["flex max-w-3xl flex-col gap-4", alignment, className]}
+	data-reveal
+>
 	{eyebrow && (
 		<p class="font-sans text-small font-semibold uppercase tracking-widest text-primary">
 			{eyebrow}

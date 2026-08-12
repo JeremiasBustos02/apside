@@ -16,7 +16,7 @@ const faqItems = (await getCollection("faq")).sort(
 			subtitle="Todo lo que necesitás saber antes de arrancar"
 			align="center"
 		/>
-		<div class="mx-auto mt-block max-w-3xl">
+		<div class="mx-auto mt-block max-w-3xl" data-reveal-group>
 			{faqItems.map((item) => (
 				<FaqItem
 					question={item.data.question}

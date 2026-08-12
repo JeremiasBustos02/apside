@@ -35,28 +35,32 @@ const iconPaths: Record<string, string[]> = {
 		color="secondary"
 		size={360}
 		class="absolute -right-24 top-1/4 opacity-10"
+		parallax={0.4}
 	/>
 	<Blob
 		color="primary"
 		size={260}
 		class="absolute -left-20 bottom-1/4 opacity-10"
+		parallax={0.6}
 	/>
 	<DecorativeCircle
 		color="accent"
 		size={56}
 		ring
 		position="absolute left-[10%] top-[8%]"
+		parallax={0.25}
 	/>
 	<DecorativeCircle
 		color="primary"
 		size={40}
 		position="absolute right-[8%] bottom-[10%]"
+		parallax={0.35}
 	/>
 
 	<div
-		class="relative mx-auto grid max-w-content grid-cols-1 items-start gap-16 px-gutter md:grid-cols-[1fr_1.2fr]"
+		class="relative mx-auto grid max-w-content grid-cols-1 items-start gap-10 px-gutter md:grid-cols-[1fr_1.2fr] md:gap-16"
 	>
-		<div class="flex flex-col gap-8">
+		<div class="flex flex-col gap-8" data-reveal>
 			<div class="flex flex-col gap-4">
 				<p
 					class="font-sans text-small font-semibold uppercase tracking-widest text-primary"
@@ -114,6 +118,7 @@ const iconPaths: Record<string, string[]> = {
 			action="https://formspree.io/f/YOUR_FORM_ID"
 			method="POST"
 			class="flex flex-col gap-5 rounded-card border border-soft bg-soft/40 p-card shadow-sm"
+			data-reveal
 		>
 			<input type="hidden" name="_next" value="/" />
 

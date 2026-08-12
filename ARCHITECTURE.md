@@ -177,6 +177,18 @@ Alcance de GSAP por sección:
 
 **Accesibilidad de movimiento:** todo lo anterior debe respetar `prefers-reduced-motion: reduce` — en ese caso se elimina el parallax y la flotación continua, y los reveals pasan a ser instantáneos o con fade muy corto sin desplazamiento.
 
+**Implementación actual (Fase 13):** los scripts viven en `src/scripts/` (maestro `animations.ts` importado en `index.astro`) y se organizan por responsabilidad:
+
+- `gsap-init.ts` — registra `ScrollTrigger` y re-exporta `gsap`.
+- `hero.ts` — timeline de entrada (título, subtítulo, CTAs desde eje y, visual desde x) con `gsap.matchMedia()`; flotación vertical continua del visual (`yoyo repeat -1`).
+- `reveal.ts` — `[data-reveal]` (elemento suelto) y `[data-reveal-group]` (stagger de hijos) con ScrollTrigger `start: "top 85%"`.
+- `decorations.ts` — parallax por scroll en `[data-parallax]`, velocidad leída de `data-parallax` (0.2–0.6), `scrub: true`.
+- `process.ts` — línea de timeline crece con `scaleY` + `scrub`, nodos con `back.out`, cards con reveal.
+- `team.ts` — reemplaza el JS vanilla de Team.astro: apertura/cierre del modal con fade de backdrop + `scale 0.95→1`, focus management, cierre con Esc, hover de cards (`data-team-card`).
+- `flipcard.ts` — flip 3D con GSAP (click/tap) en `.flip-inner`; bajo `prefers-reduced-motion: reduce` la vuelta se aplica por CSS (`[data-flipped="true"]`).
+
+Convenciones: cada módulo usa `gsap.matchMedia()` (`mm.add("(prefers-reduced-motion: no-preference)")`) para desactivar parallax/flotación/reveals desplazados bajo `reduce`. Selectores basados en atributos `data-*` añadidos en los componentes (nunca en clases utilitarias).
+
 ## 6. SEO
 
 - Meta tags base (title, description, OG image) centralizados en `Layout.astro`, recibidos como props desde `index.astro`.

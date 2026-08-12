@@ -5,6 +5,7 @@ interface Props {
 	ring?: boolean;
 	position?: string;
 	class?: string;
+	parallax?: number;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
 	ring = false,
 	position = "",
 	class: className = "",
+	parallax,
 } = Astro.props;
 
 const fillClasses = {
@@ -40,4 +42,5 @@ const ringClasses = {
 	]}
 	aria-hidden="true"
 	style={{ width: `${size}px`, height: `${size}px` }}
+	{...(parallax !== undefined ? { "data-parallax": String(parallax) } : {})}
 ></div>
