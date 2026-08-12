@@ -48,10 +48,10 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Estado hover (nombre + "Visitar sitio →")
 
 ## PHASE 7 — Process
-- [ ] Entradas de colección `process/` (Contacto, Análisis y diseño, Implementación, Monitoreo y soporte)
-- [ ] `Timeline.astro` (versión estática, sin progreso animado todavía)
-- [ ] `ProcessCard.astro` (Confianza, Calidad, etc.)
-- [ ] Layout responsive (dos columnas desktop → stack mobile)
+- [x] Entradas de colección `process/` (Contacto, Análisis y diseño, Implementación, Monitoreo y soporte)
+- [x] `Timeline.astro` (versión estática, sin progreso animado todavía)
+- [x] `ProcessCard.astro` (step, título, descripción)
+- [x] Layout responsive (dos columnas desktop → stack mobile)
 
 ## PHASE 8 — Why choose us
 - [ ] Entradas de colección `why-us/` (Compromiso y confianza, Seguridad, Creatividad)

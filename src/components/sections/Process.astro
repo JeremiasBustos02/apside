@@ -1,7 +1,35 @@
 ---
+import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
+import Wave from "../ui/Wave.astro";
+import Blob from "../ui/Blob.astro";
+import Timeline from "../process/Timeline.astro";
+
+const steps = (await getCollection("process")).sort(
+	(a, b) => a.data.step - b.data.step,
+);
 ---
 
-<section id="proceso" class="scroll-mt-24">
-	<SectionTitle title="Proceso" align="left" class="px-gutter" />
+<section id="proceso" class="relative scroll-mt-24 overflow-hidden bg-white">
+	<Blob
+		color="secondary"
+		size={320}
+		class="absolute -left-28 top-1/4 opacity-10"
+	/>
+	<Blob
+		color="primary"
+		size={260}
+		class="absolute -right-24 bottom-1/4 opacity-10"
+	/>
+	<div class="relative mx-auto max-w-content px-gutter pb-section pt-section">
+		<SectionTitle
+			title="Nuestro proceso"
+			subtitle="Un camino claro de la idea al resultado"
+			align="center"
+		/>
+		<div class="mt-block">
+			<Timeline steps={steps.map((s) => s.data)} />
+		</div>
+	</div>
+	<Wave color="soft" class="absolute inset-x-0 bottom-0" />
 </section>

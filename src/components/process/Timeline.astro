@@ -1,0 +1,49 @@
+---
+import ProcessCard from "./ProcessCard.astro";
+
+interface Step {
+	step: number;
+	title: string;
+	description: string;
+}
+
+interface Props {
+	steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+
+<ol class="relative mx-auto max-w-4xl lg:mt-0">
+	<div
+		class="absolute top-0 h-full w-0.5 -translate-x-1/2 bg-primary/20 left-6 lg:left-1/2"
+		aria-hidden="true"
+	></div>
+
+	{steps.map((step, index) => {
+		const alignRight = index % 2 === 1;
+		return (
+			<li
+				class={`relative pt-16 first:pt-0 last:pb-4 pl-20 lg:pl-0 ${
+					index > 0 ? "mt-6" : ""
+				}`}
+			>
+				<div
+					class="absolute left-6 top-1 flex size-10 -translate-x-1/2 items-center justify-center rounded-full bg-primary font-display text-h4 text-white shadow-sm lg:left-1/2"
+					aria-hidden="true"
+				>
+					{step.step}
+				</div>
+				<div
+					class={
+						alignRight
+							? "lg:ml-auto lg:w-1/2 lg:pl-12"
+							: "lg:w-1/2 lg:pr-12"
+					}
+				>
+					<ProcessCard title={step.title} description={step.description} />
+				</div>
+			</li>
+		);
+	})}
+</ol>
