@@ -103,11 +103,13 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 
 ### Navbar
 - [ ] Centrar los labels de navegación
-- [ ] Aplicar el mismo padding/margin lateral general
+- [ ] Aplicar el mismo padding/margin lateral general (dentro del contenido del navbar)
 - [ ] Agregar botón "Contactanos" con flecha al final
-- [ ] Reemplazar el scrim propio del header por un scrim del Hero (ver ARCHITECTURE.md): capa absoluta en la sección Hero, degradé negro de 3 stops (100%→75%→0%), texto del navbar blanco fijo en este estado
-- [ ] Crossfade simultáneo: scrim del Hero se desvanece mientras aparece el fondo oscuro+blur del navbar flotante, en el mismo rango de scroll
-- [ ] Estado con scroll: flotante (despegado de bordes), fondo oscuro con blur, esquinas redondeadas
+- [ ] Mismo color/fondo (oscuro + blur) en ambos estados, ya no hay transición de color
+- [ ] Estado scroll=0: header ancho completo, pegado al borde superior, sin margin, esquinas sin redondear (o radio mínimo)
+- [ ] Estado con scroll: flotante (margin, despegado de bordes, esquinas redondeadas) — ya funcionaba bien, mantener igual
+- [ ] Animar la transición de layout (margin/border-radius) ligada al scroll entre ambos estados
+- [ ] Eliminar el scrim del Hero (ya no es necesario, el navbar es opaco desde el inicio)
 
 ### Hero
 - [ ] Quitar los dos botones (CTA primario/secundario)

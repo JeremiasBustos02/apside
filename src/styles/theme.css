@@ -1,7 +1,8 @@
 @theme static {
 	/* Tipografía */
 	--font-sans: "Poppins", system-ui, sans-serif;
-	--font-display: "Dx Figgle", "Poppins", system-ui, sans-serif;
+	--font-display: "Kanit", "Poppins", system-ui, sans-serif;
+	--font-brand: "Dx Figgle", "Poppins", system-ui, sans-serif;
 
 	/* Paleta Apside */
 	--color-ink: #091821;

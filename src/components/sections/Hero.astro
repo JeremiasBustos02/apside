@@ -6,11 +6,6 @@ import DecorativeCircle from "../ui/DecorativeCircle.astro";
 
 <section id="hero" class="relative z-10 flex min-h-svh scroll-mt-24 items-center overflow-hidden">
 	<div
-		data-hero-scrim
-		aria-hidden="true"
-		class="pointer-events-none absolute inset-x-0 top-0 z-[-1] h-[150px] transition-opacity duration-300"
-	></div>
-	<div
 		data-hero-fade
 		class="container-apside flex flex-col items-center gap-4 pb-section pt-section"
 	>
@@ -18,17 +13,3 @@ import DecorativeCircle from "../ui/DecorativeCircle.astro";
 		<p class="text-gray-500 text-xl italic">{hero.subtitle}</p>
 	</div>
 </section>
-
-<style>
-	[data-hero-scrim] {
-		background-image: linear-gradient(
-			to bottom,
-			rgba(0, 0, 0, 0.65) 0%,
-			rgba(0, 0, 0, 0.45) 20%,
-			rgba(0, 0, 0, 0) 60%
-		);
-	}
-	:global([data-hero-scrim].nav-crossfade-hidden) {
-		opacity: 0;
-	}
-</style>

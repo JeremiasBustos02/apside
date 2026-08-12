@@ -31,7 +31,7 @@ const { title, highlight, description } = Astro.props;
 				size={90}
 				class="absolute bottom-4 left-4 opacity-10"
 			/>
-			<span class="relative text-h3 font-display text-ink">{title}</span>
+			<span class="relative text-h3 font-display font-bold text-ink">{title}</span>
 			<span class="relative max-w-sm text-body font-medium text-primary">
 				{highlight}
 			</span>
@@ -40,7 +40,7 @@ const { title, highlight, description } = Astro.props;
 			aria-hidden="true"
 			class="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-card bg-primary p-card text-center shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)]"
 		>
-			<span class="text-h3 font-display text-white">{title}</span>
+			<span class="text-h3 font-display font-bold text-white">{title}</span>
 			<p class="max-w-sm text-body text-white/85">{description}</p>
 		</div>
 	</div>

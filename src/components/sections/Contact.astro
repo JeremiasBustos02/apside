@@ -43,12 +43,6 @@ const iconPaths: Record<string, string[]> = {
 		class="absolute -left-20 bottom-1/4 opacity-10"
 		parallax={0.6}
 	/>
-	<DecorativeCircle
-		color="primary"
-		size={40}
-		position="absolute right-[8%] bottom-[10%]"
-		parallax={0.35}
-	/>
 
 	<div
 		class="container-apside relative grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16"
@@ -61,51 +55,63 @@ const iconPaths: Record<string, string[]> = {
 					{contact.eyebrow}
 				</p>
 				<div class="flex items-center gap-4">
-					<h2 class="font-display text-h2 text-white">{contact.title}</h2>
+					<h2 class="font-display text-h2 text-white">
+						{contact.title}
+					</h2>
 				</div>
-				<p class="max-w-xl text-body text-white/80">{contact.description}</p>
+				<p class="max-w-xl text-body text-white/80">
+					{contact.description}
+				</p>
 			</div>
 
 			<ul class="flex flex-col gap-3">
-				{contact.channels.map((channel) => (
-					<li>
-						<a
-							href={channel.href}
-							target={channel.href.startsWith("http") ? "_blank" : undefined}
-							rel={
-								channel.href.startsWith("http")
-									? "noopener noreferrer"
-									: undefined
-							}
-							class="group flex items-center gap-4 rounded-card border border-soft bg-white p-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent hover:border-primary/30"
-						>
-<span
-							class="flex size-11 shrink-0 items-center justify-center rounded-full bg-soft text-primary"
-							aria-hidden="true"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="size-5"
-								set:html={iconPaths[channel.icon].join("")}
-							></svg>
-						</span>
-							<span class="flex flex-col">
-								<span class="text-caption font-semibold uppercase tracking-widest text-ink/60">
-									{channel.label}
+				{
+					contact.channels.map((channel) => (
+						<li>
+							<a
+								href={channel.href}
+								target={
+									channel.href.startsWith("http")
+										? "_blank"
+										: undefined
+								}
+								rel={
+									channel.href.startsWith("http")
+										? "noopener noreferrer"
+										: undefined
+								}
+								class="group flex items-center gap-4 rounded-card border border-soft bg-white p-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent hover:border-primary/30"
+							>
+								<span
+									class="flex size-11 shrink-0 items-center justify-center rounded-full bg-soft text-primary"
+									aria-hidden="true"
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="size-5"
+										set:html={iconPaths[channel.icon].join(
+											"",
+										)}
+									/>
 								</span>
-								<span class="text-body font-medium text-ink group-hover:text-primary">
-									{channel.value}
+								<span class="flex flex-col">
+									<span class="text-caption font-semibold uppercase tracking-widest text-ink/60">
+										{channel.label}
+									</span>
+									<span class="text-body font-medium text-ink group-hover:text-primary">
+										{channel.value}
+									</span>
 								</span>
-							</span>
-						</a>
-					</li>
-				))}
+							</a>
+						</li>
+					))
+				}
 			</ul>
 		</div>
 
@@ -158,9 +164,11 @@ const iconPaths: Record<string, string[]> = {
 					<option value="" disabled selected>
 						Elegí una opción
 					</option>
-					{contact.serviceOptions.map((option) => (
-						<option value={option}>{option}</option>
-					))}
+					{
+						contact.serviceOptions.map((option) => (
+							<option value={option}>{option}</option>
+						))
+					}
 				</select>
 			</div>
 

@@ -13,7 +13,7 @@ const { question, answer } = Astro.props;
 	<summary
 		class="flex cursor-pointer list-none items-center justify-between gap-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent [&::-webkit-details-marker]:hidden"
 	>
-		<span class="flex-1 font-display text-h4 text-ink group-open:text-primary">
+		<span class="flex-1 font-display font-bold text-h4 text-ink group-open:text-primary">
 			{question}
 		</span>
 		<svg
@@ -30,7 +30,11 @@ const { question, answer } = Astro.props;
 			<path d="m6 9 6 6 6-6" />
 		</svg>
 	</summary>
-	<div class="pt-4 text-body text-ink/80">
-		{answer}
+	<div
+		class="grid grid-rows-[0fr] transition-all duration-300 ease-out group-open:grid-rows-[1fr]"
+	>
+		<div class="overflow-hidden">
+			<div class="pt-4 text-body text-ink/80">{answer}</div>
+		</div>
 	</div>
 </details>
