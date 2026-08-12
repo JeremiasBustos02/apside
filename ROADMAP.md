@@ -64,8 +64,8 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Copy revisado con foco en venta, no solo descripción técnica
 
 ## PHASE 10 — FAQ
-- [ ] Entradas de colección `faq/` (5–7 preguntas)
-- [ ] `FaqItem.astro` como acordeón accesible
+- [x] Entradas de colección `faq/` (5–7 preguntas)
+- [x] `FaqItem.astro` como acordeón accesible
 
 ## PHASE 11 — Contact
 - [ ] Contenido en `src/content/sections/contact.ts`

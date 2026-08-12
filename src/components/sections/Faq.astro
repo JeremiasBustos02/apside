@@ -1,7 +1,29 @@
 ---
+import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
+import Wave from "../ui/Wave.astro";
+import FaqItem from "../faq/FaqItem.astro";
+
+const faqItems = (await getCollection("faq")).sort(
+	(a, b) => a.data.order - b.data.order,
+);
 ---
 
-<section id="faq" class="scroll-mt-24">
-	<SectionTitle title="FAQ" align="left" class="px-gutter" />
+<section id="faq" class="relative scroll-mt-24 overflow-hidden bg-soft">
+	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
+		<SectionTitle
+			title="Preguntas frecuentes"
+			subtitle="Todo lo que necesitás saber antes de arrancar"
+			align="center"
+		/>
+		<div class="mx-auto mt-block max-w-3xl">
+			{faqItems.map((item) => (
+				<FaqItem
+					question={item.data.question}
+					answer={item.data.answer}
+				/>
+			))}
+		</div>
+	</div>
+	<Wave color="white" class="absolute inset-x-0 bottom-0" />
 </section>
