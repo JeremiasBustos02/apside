@@ -59,9 +59,9 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Blobs/formas decorativas propias por card
 
 ## PHASE 9 — Services
-- [ ] Entradas de colección `services/` (Landing Page, Web completa, Sistema a medida)
-- [ ] `ServiceCard.astro` respondiendo: qué es / para quién / qué problema resuelve / qué incluye / qué mejora
-- [ ] Copy revisado con foco en venta, no solo descripción técnica
+- [x] Entradas de colección `services/` (Landing Page, Web completa, Sistema a medida)
+- [x] `ServiceCard.astro` respondiendo: qué es / para quién / qué problema resuelve / qué incluye / qué mejora
+- [x] Copy revisado con foco en venta, no solo descripción técnica
 
 ## PHASE 10 — FAQ
 - [ ] Entradas de colección `faq/` (5–7 preguntas)

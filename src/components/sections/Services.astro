@@ -1,7 +1,38 @@
 ---
+import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
+import Wave from "../ui/Wave.astro";
+import ServiceCard from "../services/ServiceCard.astro";
+
+const services = (await getCollection("services")).sort(
+	(a, b) => a.data.order - b.data.order,
+);
 ---
 
-<section id="servicios" class="scroll-mt-24">
-	<SectionTitle title="Servicios" align="left" class="px-gutter" />
+<section
+	id="servicios"
+	class="relative scroll-mt-24 overflow-hidden bg-white"
+>
+	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
+		<SectionTitle
+			title="Servicios"
+			subtitle="Lo que hacemos para que tu negocio crezca"
+			align="center"
+		/>
+		<div
+			class="mt-block grid grid-cols-1 gap-card md:grid-cols-2 lg:grid-cols-3"
+		>
+			{services.map((service) => (
+				<ServiceCard
+					title={service.data.title}
+					summary={service.data.summary}
+					forWhom={service.data.forWhom}
+					problem={service.data.problem}
+					includes={service.data.includes}
+					improves={service.data.improves}
+				/>
+			))}
+		</div>
+	</div>
+	<Wave color="soft" class="absolute inset-x-0 bottom-0" />
 </section>
