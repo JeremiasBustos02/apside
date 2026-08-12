@@ -74,10 +74,10 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Formulario configurado para enviar a Formspree (`action="https://formspree.io/f/YOUR_FORM_ID"`)
 
 ## PHASE 12 — Footer
-- [ ] Contenido en `src/content/sections/footer.ts`
-- [ ] Columnas: Servicios / Apside / Contacto
-- [ ] "APSIDE" en tamaño grande con Dx Figgle
-- [ ] Año dinámico en el copyright
+- [x] Contenido en `src/content/sections/footer.ts`
+- [x] Columnas: Servicios / Apside / Contacto
+- [x] "APSIDE" en tamaño grande con Dx Figgle
+- [x] Año dinámico en el copyright
 
 ## PHASE 13 — Animations (GSAP)
 - [ ] Instalar GSAP + ScrollTrigger, documentar en `ARCHITECTURE.md`

@@ -1,32 +1,5 @@
 ---
-const navColumns = {
-	explora: [
-		{ label: "Servicios", href: "#servicios" },
-		{ label: "Proceso", href: "#proceso" },
-		{ label: "Equipo", href: "#equipo" },
-		{ label: "Contacto", href: "#contacto" },
-	],
-	compania: [
-		{ label: "Sobre Apside", href: "#por-que-apside" },
-		{ label: "Clientes", href: "#clientes" },
-		{ label: "FAQ", href: "#faq" },
-	],
-};
-
-const socialLinks = [
-	{
-		label: "LinkedIn",
-		href: "https://www.linkedin.com",
-	},
-	{
-		label: "Instagram",
-		href: "https://www.instagram.com",
-	},
-	{
-		label: "GitHub",
-		href: "https://www.github.com",
-	},
-];
+import { footer } from "../../content/sections/footer";
 ---
 
 <footer
@@ -36,69 +9,34 @@ const socialLinks = [
 >
 	<div class="mx-auto max-w-content px-gutter py-section">
 		<div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-			<div class="flex flex-col gap-4">
-				<p class="font-display text-h3">Apside</p>
-				<p class="text-small text-white/70">
-					Una agencia de desarrollo con ideas claras, proceso honesto y diseños
-					que se sienten bien.
+			<div class="flex flex-col gap-5">
+				<p class="font-display text-display leading-none text-white">
+					{footer.brand}
 				</p>
+				<p class="max-w-sm text-small text-white/70">{footer.tagline}</p>
 			</div>
 
-			<nav aria-label="Explorar">
-				<h3 class="mb-4 text-small font-semibold uppercase tracking-widest text-secondary">
-					Explorar
-				</h3>
-				<ul class="flex flex-col gap-3">
-					{navColumns.explora.map((link) => (
-						<li>
-							<a
-								href={link.href}
-								class="text-small text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-							>
-								{link.label}
-							</a>
-						</li>
-					))}
-				</ul>
-			</nav>
-
-			<nav aria-label="Compañía">
-				<h3 class="mb-4 text-small font-semibold uppercase tracking-widest text-secondary">
-					Compañía
-				</h3>
-				<ul class="flex flex-col gap-3">
-					{navColumns.compania.map((link) => (
-						<li>
-							<a
-								href={link.href}
-								class="text-small text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-							>
-								{link.label}
-							</a>
-						</li>
-					))}
-				</ul>
-			</nav>
-
-			<div class="flex flex-col gap-4">
-				<h3 class="mb-4 text-small font-semibold uppercase tracking-widest text-secondary">
-					Seguinos
-				</h3>
-				<ul class="flex flex-col gap-3">
-					{socialLinks.map((social) => (
-						<li>
-							<a
-								href={social.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-small text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-							>
-								{social.label}
-							</a>
-						</li>
-					))}
-				</ul>
-			</div>
+			{footer.columns.map((column) => (
+				<nav aria-label={column.title}>
+					<h3 class="mb-4 text-small font-semibold uppercase tracking-widest text-secondary">
+						{column.title}
+					</h3>
+					<ul class="flex flex-col gap-3">
+						{column.links.map((link) => (
+							<li>
+								<a
+									href={link.href}
+									target={link.external ? "_blank" : undefined}
+									rel={link.external ? "noopener noreferrer" : undefined}
+									class="text-small text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+								>
+									{link.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			))}
 		</div>
 
 		<div
