@@ -54,9 +54,9 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [x] Layout responsive (dos columnas desktop → stack mobile)
 
 ## PHASE 8 — Why choose us
-- [ ] Entradas de colección `why-us/` (Compromiso y confianza, Seguridad, Creatividad)
-- [ ] `FlipCard.astro` (estado frontal + estado con descripción)
-- [ ] Blobs/formas decorativas propias por card
+- [x] Entradas de colección `why-us/` (Compromiso y confianza, Seguridad, Creatividad)
+- [x] `FlipCard.astro` (estado frontal + estado con descripción)
+- [x] Blobs/formas decorativas propias por card
 
 ## PHASE 9 — Services
 - [ ] Entradas de colección `services/` (Landing Page, Web completa, Sistema a medida)

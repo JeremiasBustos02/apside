@@ -1,7 +1,46 @@
 ---
+import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
+import Wave from "../ui/Wave.astro";
+import FlipCard from "../why-us/FlipCard.astro";
+
+const reasons = (await getCollection("whyUs")).sort(
+	(a, b) => a.data.order - b.data.order,
+);
 ---
 
-<section id="por-que-elegirnos" class="scroll-mt-24">
-	<SectionTitle title="¿Por qué elegirnos?" align="left" class="px-gutter" />
+<section
+	id="por-que-elegirnos"
+	class="relative scroll-mt-24 overflow-hidden bg-soft"
+>
+	<div class="mx-auto max-w-content px-gutter pb-section pt-section">
+		<SectionTitle
+			title="¿Por qué elegirnos?"
+			subtitle="Lo que nos hace distintos"
+			align="center"
+		/>
+		<ul
+			class="mt-block grid grid-cols-1 gap-card md:grid-cols-2 lg:grid-cols-3"
+		>
+			{reasons.map((reason) => (
+				<li>
+					<FlipCard
+						title={reason.data.title}
+						highlight={reason.data.highlight}
+						description={reason.data.description}
+					/>
+				</li>
+			))}
+		</ul>
+	</div>
+	<Wave color="white" class="absolute inset-x-0 bottom-0" />
 </section>
+
+<script>
+	document.addEventListener("click", (event) => {
+		const toggle = (event.target as HTMLElement).closest("[data-flip-toggle]");
+		if (!toggle) return;
+		const inner = toggle.closest("[data-flip-inner]") as HTMLElement;
+		inner.dataset.flipped = inner.dataset.flipped === "true" ? "false" : "true";
+	});
+</script>

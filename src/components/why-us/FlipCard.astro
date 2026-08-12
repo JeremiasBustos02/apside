@@ -1,0 +1,50 @@
+---
+import Blob from "../ui/Blob.astro";
+
+interface Props {
+	title: string;
+	highlight: string;
+	description: string;
+}
+
+const { title, highlight, description } = Astro.props;
+---
+
+<div
+	data-flip
+	class="group relative h-64 [perspective:1000px] lg:[perspective:1200px]"
+>
+	<div
+		data-flip-inner
+		class="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] data-[flipped=true]:[transform:rotateY(180deg)]"
+	>
+		<button
+			type="button"
+			data-flip-toggle
+			aria-label={`${title}: ${highlight}. Tocar para ver más`}
+			class="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-card border border-soft bg-white p-card text-center shadow-sm [backface-visibility:hidden] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+		>
+			<Blob
+				color="secondary"
+				size={120}
+				class="absolute right-4 top-4 opacity-15"
+			/>
+			<Blob
+				color="primary"
+				size={90}
+				class="absolute bottom-4 left-4 opacity-10"
+			/>
+			<span class="relative text-h3 font-display text-ink">{title}</span>
+			<span class="relative max-w-sm text-body font-medium text-primary">
+				{highlight}
+			</span>
+		</button>
+		<div
+			aria-hidden="true"
+			class="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-4 rounded-card bg-primary p-card text-center shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)]"
+		>
+			<span class="text-h3 font-display text-white">{title}</span>
+			<p class="max-w-sm text-body text-white/85">{description}</p>
+		</div>
+	</div>
+</div>
