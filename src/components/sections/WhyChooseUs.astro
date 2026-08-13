@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
 import Wave from "../ui/Wave.astro";
+import TopoWaves from "../ui/TopoWaves.astro";
 import FlipCard from "../why-us/FlipCard.astro";
 
 const reasons = (await getCollection("whyUs")).sort(
@@ -13,6 +14,7 @@ const reasons = (await getCollection("whyUs")).sort(
 	id="por-que-elegirnos"
 	class="relative scroll-mt-24 overflow-hidden bg-soft"
 >
+	<TopoWaves color="ink" class="absolute inset-0" />
 	<div class="container-apside pb-section pt-section">
 		<SectionTitle
 			title="¿Por qué elegirnos?"
