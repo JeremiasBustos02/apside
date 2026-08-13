@@ -1,0 +1,15 @@
+---
+interface Props {
+	color?: "ink";
+	class?: string;
+}
+
+const { color = "ink", class: className = "" } = Astro.props;
+---
+
+<canvas
+	data-topo
+	data-topo-color={color}
+	aria-hidden="true"
+	class:list={["block h-full w-full", className]}
+/>

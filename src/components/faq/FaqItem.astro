@@ -8,10 +8,10 @@ const { question, answer } = Astro.props;
 ---
 
 <details
-	class="group rounded-card border border-soft bg-white p-card shadow-sm transition-all open:border-primary/30 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent"
+	class="group rounded-card border border-soft bg-white shadow-sm transition-all open:border-primary/30"
 >
 	<summary
-		class="flex cursor-pointer list-none items-center justify-between gap-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent [&::-webkit-details-marker]:hidden"
+		class="flex cursor-pointer list-none items-center justify-between gap-6 p-card [&::-webkit-details-marker]:hidden"
 	>
 		<span class="flex-1 font-display font-bold text-h4 text-ink group-open:text-primary">
 			{question}
@@ -34,7 +34,7 @@ const { question, answer } = Astro.props;
 		class="grid grid-rows-[0fr] transition-all duration-300 ease-out group-open:grid-rows-[1fr]"
 	>
 		<div class="overflow-hidden">
-			<div class="pt-4 text-body text-ink/80">{answer}</div>
+			<div class="px-card pb-card pt-4 text-body text-ink/80">{answer}</div>
 		</div>
 	</div>
 </details>

@@ -50,7 +50,6 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 ## PHASE 7 — Process
 - [ ] Entradas de colección `process/` (Contacto, Análisis y diseño, Implementación, Monitoreo y soporte)
 - [ ] `Timeline.astro` (versión estática, sin progreso animado todavía)
-- [ ] `ProcessCard.astro` (Confianza, Calidad, etc.)
 - [ ] Layout responsive (dos columnas desktop → stack mobile)
 
 ## PHASE 8 — Why choose us
@@ -136,8 +135,15 @@ Cada fase se completa (y se revisa) antes de pasar a la siguiente. GSAP no se to
 - [ ] Agregar campo `description` al schema de la colección (ver ARCHITECTURE.md)
 - [ ] Mostrar la descripción corta debajo de cada logo (ej. "Landing page para metalúrgica")
 
-### Process
-- [ ] Reducir la altura vertical general de la sección
+### Process — Rediseño 4: Timeline horizontal
+_(Reemplaza al rediseño 3 "Storytelling con pin" — ver ARCHITECTURE.md para el detalle completo.)_
+- [ ] Desktop: timeline horizontal — 4 pasos en fila unidos por una línea horizontal, sin pin, en flujo normal
+- [ ] Número fantasma por paso en Dx Figgle (semi-transparente, tipográfico, ancla visual del paso)
+- [ ] Color por paso rotando entre `--color-primary` / `--color-secondary` / `--color-ink` (sin accent)
+- [ ] Título + descripción directos sobre el fondo, sin card ni contenedor propio (ProcessCard.astro eliminado, ya no aplica el concepto de card)
+- [ ] Línea de progreso horizontal con ScrollTrigger en modo `scrub` (sin pin): relleno de la línea + resaltado del número del paso actual al completarse su tramo
+- [ ] Mobile: versión vertical compacta — línea vertical corta estática, pasos apilados con spacing reducido (sección notablemente más corta)
+- [ ] Reduced motion: estático, números legibles, línea base sin relleno animado
 
 ### Why Choose Us
 - [ ] Cambiar proporción de las cards: más altas que anchas

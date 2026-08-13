@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
 import Wave from "../ui/Wave.astro";
+import Blob from "../ui/Blob.astro";
 import TeamCard from "../team/TeamCard.astro";
 import TeamModal from "../team/TeamModal.astro";
 
@@ -19,9 +20,21 @@ const renderedModals = await Promise.all(
 
 <section
 	id="equipo"
-	class="relative scroll-mt-24 overflow-hidden bg-ink"
+	class="relative scroll-mt-24 bg-ink"
 >
-	<div class="container-apside pb-section pt-section">
+	<Blob
+		color="secondary"
+		size={260}
+		class="absolute -left-24 top-1/4 opacity-10"
+		parallax={0.4}
+	/>
+	<Blob
+		color="primary"
+		size={200}
+		class="absolute -right-20 bottom-1/4 opacity-10"
+		parallax={0.6}
+	/>
+	<div class="container-apside relative pb-section pt-section">
 		<SectionTitle
 			title="Equipo"
 			subtitle="El equipo detrás de Apside"
@@ -51,4 +64,13 @@ const renderedModals = await Promise.all(
 			<Content />
 		</TeamModal>
 	))}
+
+	<Wave
+		color="white"
+		class="absolute inset-x-0 bottom-9 h-12 -scale-x-100 opacity-5"
+	/>
+	<Wave
+		color="white"
+		class="absolute inset-x-0 -bottom-3 h-12 -scale-y-100 opacity-5"
+	/>
 </section>

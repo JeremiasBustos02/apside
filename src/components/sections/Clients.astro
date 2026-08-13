@@ -2,6 +2,8 @@
 import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
 import Wave from "../ui/Wave.astro";
+import Blob from "../ui/Blob.astro";
+import DecorativeCircle from "../ui/DecorativeCircle.astro";
 import ClientBadge from "../clients/ClientBadge.astro";
 
 const clients = (await getCollection("clients")).sort(
@@ -10,7 +12,20 @@ const clients = (await getCollection("clients")).sort(
 ---
 
 <section id="clientes" class="relative scroll-mt-24 overflow-hidden bg-ink">
-	<div class="container-apside pb-section pt-section">
+	<Blob
+		color="accent"
+		size={200}
+		class="absolute -right-24 top-1/4 opacity-10"
+		parallax={0.5}
+	/>
+	<DecorativeCircle
+		color="secondary"
+		ring
+		size={220}
+		class="absolute -left-24 bottom-1/4 opacity-20"
+		parallax={0.6}
+	/>
+	<div class="container-apside relative pb-section pt-section">
 		<SectionTitle
 			title="Clientes"
 			subtitle="Confían en nosotros"

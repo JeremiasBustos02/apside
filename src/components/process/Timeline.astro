@@ -1,6 +1,4 @@
 ---
-import ProcessCard from "./ProcessCard.astro";
-
 interface Step {
 	step: number;
 	title: string;
@@ -12,40 +10,75 @@ interface Props {
 }
 
 const { steps } = Astro.props;
+
+const stepColors = [
+	"var(--color-primary)",
+	"var(--color-secondary)",
+	"var(--color-ink)",
+	"var(--color-primary)",
+];
+
+const numSize = "clamp(6rem, 9vw, 9rem)";
+const numSizeMobile = "clamp(3.5rem, 12vw, 4.5rem)";
+
+const formatStep = (n: number) => String(n).padStart(2, "0");
 ---
 
-<ol class="relative mx-auto max-w-4xl lg:mt-0">
+<div
+	class="relative"
+	style={`--process-num: ${numSize}; --process-num-mobile: ${numSizeMobile}`}
+>
 	<div
-		class="absolute top-0 h-full w-0.5 -translate-x-1/2 bg-primary/20 left-6 lg:left-1/2"
+		class="pointer-events-none absolute inset-x-0 hidden lg:block"
+		style="top: calc(var(--process-num) / 2)"
+		data-process-track
 		aria-hidden="true"
-		data-timeline-line
+	>
+		<div class="h-px w-full bg-ink/15"></div>
+		<div
+			class="absolute inset-0 origin-left scale-x-0 bg-primary"
+			data-process-fill
+		></div>
+	</div>
+
+	<div
+		class="pointer-events-none absolute bottom-6 left-8 top-6 w-px -translate-x-1/2 bg-ink/15 lg:hidden"
+		aria-hidden="true"
 	></div>
 
-	{steps.map((step, index) => {
-		const alignRight = index % 2 === 1;
-		return (
+	<ol class="grid grid-cols-1 lg:grid-cols-4">
+		{steps.map((step, index) => (
 			<li
-				class={`relative pt-8 first:pt-0 last:pb-2 pl-16 sm:pl-20 lg:pl-0 ${
-					index > 0 ? "mt-3" : ""
-				}`}
+				class="relative flex items-start gap-5 py-5 lg:block lg:px-6 lg:py-0 lg:gap-0 lg:text-center"
+				data-process-step
 			>
-				<div
-					class="absolute left-6 top-1 flex size-10 -translate-x-1/2 items-center justify-center rounded-full bg-primary font-display text-h4 text-white shadow-sm lg:left-1/2"
-					aria-hidden="true"
-					data-timeline-node
+				<span
+					class="relative z-10 w-16 shrink-0 select-none font-brand leading-none opacity-[0.4] motion-reduce:opacity-[0.5] lg:w-auto lg:opacity-[0.18]"
+					style={`color: ${stepColors[index % stepColors.length]}`}
+					data-process-number
 				>
-					{step.step}
-				</div>
-				<div
-					class={
-						alignRight
-							? "lg:ml-auto lg:w-1/2 lg:pl-12"
-							: "lg:w-1/2 lg:pr-12"
-					}
-				>
-					<ProcessCard title={step.title} description={step.description} />
+					{formatStep(step.step)}
+				</span>
+
+				<div class="lg:mt-5 lg:flex lg:flex-col lg:items-center">
+					<h3 class="font-display text-h3 text-ink">{step.title}</h3>
+					<p class="mt-2 max-w-xs text-body text-ink/70">
+						{step.description}
+					</p>
 				</div>
 			</li>
-		);
-	})}
-</ol>
+		))}
+	</ol>
+</div>
+
+<style>
+	[data-process-number] {
+		font-size: var(--process-num-mobile);
+	}
+
+	@media (min-width: 64rem) {
+		[data-process-number] {
+			font-size: var(--process-num);
+		}
+	}
+</style>

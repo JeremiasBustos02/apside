@@ -1,13 +1,11 @@
 ---
 import { hero } from "../../content/sections/hero";
-import Blob from "../ui/Blob.astro";
-import DecorativeCircle from "../ui/DecorativeCircle.astro";
 ---
 
 <section id="hero" class="relative z-10 flex min-h-svh scroll-mt-24 items-center overflow-hidden">
 	<div
 		data-hero-fade
-		class="container-apside flex flex-col items-center gap-4 pb-section pt-section"
+		class="container-apside relative flex flex-col items-center gap-4 pb-section pt-section"
 	>
 		<h1 class="text-7xl md:text-9xl font-bold mb-2">{hero.title}</h1>
 		<p class="text-gray-500 text-xl italic">{hero.subtitle}</p>

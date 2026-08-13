@@ -5,6 +5,7 @@ interface Props {
 	position?: string;
 	class?: string;
 	parallax?: number;
+	variant?: "round" | "stretched" | "asymmetric";
 }
 
 const {
@@ -13,6 +14,7 @@ const {
 	position = "",
 	class: className = "",
 	parallax,
+	variant = "round",
 } = Astro.props;
 
 const colorClasses = {
@@ -22,12 +24,24 @@ const colorClasses = {
 	soft: "text-soft",
 	ink: "text-ink",
 } as const;
+
+const shapes = {
+	round:
+		"M52.2 12.3C74.2 -0.6 102.7 -2.4 123.6 8.9C144.5 20.2 158.9 44.1 162.5 67.7C166.1 91.3 158.3 117.1 142.2 133.6C126.1 150.1 101.5 158.6 77.2 153.4C52.9 148.2 27.5 134.3 17.1 113.6C6.7 92.9 6.4 62.8 18.2 42.5C30 22.2 43.1 13.4 52.2 12.3Z",
+	stretched:
+		"M40.1 35.4C63.4 12.2 97.6 4.1 126.2 16.7C154.8 29.3 178.3 62.2 172.9 92.6C167.5 123 133.9 151 102.6 151.9C71.3 152.8 41.7 134.7 31.9 107.8C22.1 80.9 27.7 49.8 40.1 35.4Z",
+	asymmetric:
+		"M31.2 82.4C24.1 58.1 39.9 32.4 63.4 22.9C86.9 13.4 117.5 14.9 136.3 30.6C155.1 46.3 161.7 77.3 151.5 100.4C141.3 123.5 114.3 138.6 88.9 140.3C63.5 142 38.3 106.7 31.2 82.4Z",
+} as const;
 ---
 
 <div
 	class:list={[position, className]}
 	aria-hidden="true"
-	style={{ width: `${size}px`, height: `${size}px` }}
+	style={{
+		width: `var(--blob-size, ${size}px)`,
+		height: `var(--blob-size, ${size}px)`,
+	}}
 	{...(parallax !== undefined ? { "data-parallax": String(parallax) } : {})}
 >
 	<svg
@@ -38,8 +52,6 @@ const colorClasses = {
 		height="100%"
 		fill="currentColor"
 	>
-		<path
-			d="M52.2 12.3C74.2 -0.6 102.7 -2.4 123.6 8.9C144.5 20.2 158.9 44.1 162.5 67.7C166.1 91.3 158.3 117.1 142.2 133.6C126.1 150.1 101.5 158.6 77.2 153.4C52.9 148.2 27.5 134.3 17.1 113.6C6.7 92.9 6.4 62.8 18.2 42.5C30 22.2 43.1 13.4 52.2 12.3Z"
-		/>
+		<path d={shapes[variant]} />
 	</svg>
 </div>
