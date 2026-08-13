@@ -3,7 +3,7 @@ interface PaletteEntry {
 	alpha: number;
 }
 
-const BASE_ALPHA = 0.1;
+const BASE_ALPHA = 0.2;
 
 const PALETTES: Record<"ink", PaletteEntry[]> = {
 	ink: [{ varName: "--color-primary", alpha: BASE_ALPHA }],
@@ -140,10 +140,11 @@ function setLineStyle(
 	tc: TopoCanvas,
 	style: string | CanvasGradient,
 	depth: number,
+	widthScale = 1,
 ) {
 	const { ctx } = tc;
 	ctx.strokeStyle = style;
-	ctx.lineWidth = 0.7 + depth * 1.6;
+	ctx.lineWidth = (0.7 + depth * 1.6) * widthScale;
 	ctx.lineCap = "round";
 }
 
@@ -184,15 +185,46 @@ function linePointY(
 	);
 }
 
+function traceLine(
+	ctx: CanvasRenderingContext2D,
+	tc: TopoCanvas,
+	i: number,
+	time: number,
+	lineCount: number,
+	step: number,
+) {
+	const width = tc.width;
+	ctx.beginPath();
+	let prevX = 0;
+	let prevY = 0;
+	let started = false;
+	for (let x = 0; x <= width; x += step) {
+		const y = linePointY(tc, i, x, time, lineCount);
+		if (!started) {
+			ctx.moveTo(x, y);
+			prevX = x;
+			prevY = y;
+			started = true;
+		} else {
+			ctx.quadraticCurveTo(prevX, prevY, (prevX + x) / 2, (prevY + y) / 2);
+			prevX = x;
+			prevY = y;
+		}
+	}
+	if (started) ctx.lineTo(prevX, prevY);
+}
+
 function drawHighlight(
 	tc: TopoCanvas,
+	time: number,
 ) {
 	const { ctx } = tc;
 	const width = tc.width;
 	const height = tc.height;
 
-	ctx.globalAlpha = 1;
-	ctx.globalCompositeOperation = "source-atop";
+	const step = Math.max(8, Math.round(width / 120));
+	const lineCount = Math.max(10, Math.round(tc.height / 32));
+
 	const R = width * 0.1;
 	const g = ctx.createRadialGradient(
 		tc.cursorX,
@@ -202,11 +234,21 @@ function drawHighlight(
 		tc.cursorY,
 		R,
 	);
-	g.addColorStop(0, rgba(resolved[HIGHLIGHT_COLOR], 0.9));
-	g.addColorStop(1, rgba(resolved[HIGHLIGHT_COLOR], 0));
-	ctx.fillStyle = g;
-	ctx.fillRect(0, 0, width, height);
+	g.addColorStop(0, rgba(resolved[HIGHLIGHT_COLOR], 0.3));
+	g.addColorStop(0.8, rgba(resolved[HIGHLIGHT_COLOR], 0));
+
+	ctx.globalAlpha = 1;
 	ctx.globalCompositeOperation = "source-over";
+
+	for (let i = 0; i < lineCount; i++) {
+		const yCenter = height * (0.05 + 0.9 * ((i + 0.5) / lineCount));
+		if (Math.abs(yCenter - tc.cursorY) > R * 1.2) continue;
+
+		const depth = hash01(i * 3.1 + 911);
+		setLineStyle(tc, g, depth, 1.5);
+		traceLine(ctx, tc, i, time, lineCount, step);
+		ctx.stroke();
+	}
 }
 
 function drawBaseLines(
@@ -225,25 +267,7 @@ function drawBaseLines(
 		const depth = hash01(i * 3.1 + 911);
 		setLineStyle(tc, style, depth);
 		ctx.globalAlpha = lineAlpha(depth);
-
-		ctx.beginPath();
-		let prevX = 0;
-		let prevY = 0;
-		let started = false;
-		for (let x = 0; x <= width; x += step) {
-			const y = linePointY(tc, i, x, time, lineCount);
-			if (!started) {
-				ctx.moveTo(x, y);
-				prevX = x;
-				prevY = y;
-				started = true;
-			} else {
-				ctx.quadraticCurveTo(prevX, prevY, (prevX + x) / 2, (prevY + y) / 2);
-				prevX = x;
-				prevY = y;
-			}
-		}
-		if (started) ctx.lineTo(prevX, prevY);
+		traceLine(ctx, tc, i, time, lineCount, step);
 		ctx.stroke();
 	}
 }
@@ -273,7 +297,7 @@ function draw(tc: TopoCanvas, time: number) {
 	);
 
 	if (tc.infl) {
-		drawHighlight(tc);
+		drawHighlight(tc, time);
 	}
 
 	ctx.globalAlpha = 1;
