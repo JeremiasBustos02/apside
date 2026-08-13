@@ -3,7 +3,7 @@ interface PaletteEntry {
 	alpha: number;
 }
 
-const BASE_ALPHA = 0.2;
+const BASE_ALPHA = 0.12;
 
 const PALETTES: Record<"ink", PaletteEntry[]> = {
 	ink: [{ varName: "--color-primary", alpha: BASE_ALPHA }],
@@ -161,8 +161,8 @@ function linePointY(
 	const depth = hash01(i * 3.1 + 911);
 	const amp =
 		height *
-		0.055 *
-		(0.45 + 0.55 * (1 - Math.abs(f - 0.5) * 2)) *
+		0.03 *
+		(0.45 + 0.3 * (1 - Math.abs(f - 0.5) * 2)) *
 		(0.8 + depth * 0.4);
 
 	const rnd = hash01(i);
@@ -223,9 +223,9 @@ function drawHighlight(
 	const height = tc.height;
 
 	const step = Math.max(8, Math.round(width / 120));
-	const lineCount = Math.max(10, Math.round(tc.height / 32));
+	const lineCount = Math.max(10, Math.round(tc.height / 62));
 
-	const R = width * 0.1;
+	const R = width * 0.15;
 	const g = ctx.createRadialGradient(
 		tc.cursorX,
 		tc.cursorY,
@@ -234,7 +234,7 @@ function drawHighlight(
 		tc.cursorY,
 		R,
 	);
-	g.addColorStop(0, rgba(resolved[HIGHLIGHT_COLOR], 0.3));
+	g.addColorStop(0, rgba(resolved[HIGHLIGHT_COLOR], 0.2));
 	g.addColorStop(0.8, rgba(resolved[HIGHLIGHT_COLOR], 0));
 
 	ctx.globalAlpha = 1;
@@ -261,7 +261,7 @@ function drawBaseLines(
 	const width = tc.width;
 
 	const step = Math.max(8, Math.round(width / 120));
-	const lineCount = Math.max(10, Math.round(tc.height / 32));
+	const lineCount = Math.max(10, Math.round(tc.height / 62));
 
 	for (let i = 0; i < lineCount; i++) {
 		const depth = hash01(i * 3.1 + 911);
