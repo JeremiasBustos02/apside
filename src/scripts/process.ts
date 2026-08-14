@@ -69,7 +69,10 @@ mm.add("(prefers-reduced-motion: no-preference)", () => {
 
 	const trigger = ScrollTrigger.create({
 		trigger: stage,
-		start: "top 72%",
+		start: () =>
+			window.matchMedia("(max-width: 63.99rem)").matches
+				? "top 90%"
+				: "top 72%",
 		end: "bottom 45%",
 		scrub: true,
 		invalidateOnRefresh: true,
