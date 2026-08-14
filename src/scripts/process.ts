@@ -1,67 +1,85 @@
 import { gsap, ScrollTrigger } from "./gsap-init";
 
-const smoothstep = (edge0: number, edge1: number, x: number) => {
-	const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
-	return t * t * (3 - 2 * t);
-};
-
 const STEP_COUNT = 4;
-const GHOST_OPACITY = 0.18;
+
+const clear = () => {
+	const pinned = document.querySelector<HTMLElement>("[data-process-pinned]");
+	if (!pinned) return;
+	pinned.classList.remove("process-live");
+	pinned
+		.querySelectorAll<HTMLElement>("[data-process-step], [data-process-copy]")
+		.forEach((el) => {
+			el.classList.remove("is-active", "is-visible");
+			el.setAttribute("aria-hidden", "false");
+		});
+	pinned.querySelector<HTMLElement>("[data-process-fill]")!.style.transform =
+		"";
+};
 
 const mm = gsap.matchMedia();
 
-mm.add(
-	"(min-width: 64rem) and (prefers-reduced-motion: no-preference)",
-	() => {
-		const section = document.getElementById("proceso");
-		const fill = section?.querySelector<HTMLElement>(
-			"[data-process-fill]",
-		);
-		const numbers = section
-			? Array.from(
-					section.querySelectorAll<HTMLElement>(
-						"[data-process-number]",
-					),
-				)
-			: [];
-		if (!section || !fill || !numbers.length) return;
-
-		const set = (p: number) => {
-			fill.style.transform = `scaleX(${p.toFixed(4)})`;
-			numbers.forEach((number, i) => {
-				const t = smoothstep(
-					i / STEP_COUNT,
-					(i + 1) / STEP_COUNT,
-					p,
-				);
-				number.style.opacity = String(
-					(GHOST_OPACITY + (1 - GHOST_OPACITY) * t).toFixed(3),
-				);
-			});
-		};
-
-		set(0);
-
-		return ScrollTrigger.create({
-			trigger: section,
-			start: "top 75%",
-			end: "bottom 55%",
-			scrub: true,
-			onUpdate: (self) => set(self.progress),
-		});
-	},
-);
-
-const clearInline = () => {
+mm.add("(prefers-reduced-motion: no-preference)", () => {
 	const section = document.getElementById("proceso");
-	if (!section) return;
-	gsap.set(section.querySelectorAll<HTMLElement>("[data-process-number]"), {
-		clearProps: "opacity",
-	});
-	gsap.set(section.querySelectorAll<HTMLElement>("[data-process-fill]"), {
-		clearProps: "transform",
-	});
-};
+	const stage = section?.querySelector<HTMLElement>("#process-stage");
+	const pinned =
+		section?.querySelector<HTMLElement>("[data-process-pinned]");
+	const fill = section?.querySelector<HTMLElement>("[data-process-fill]");
+	const steps = section
+		? Array.from(
+				section.querySelectorAll<HTMLElement>("[data-process-step]"),
+			)
+		: [];
+	const copies = section
+		? Array.from(
+				section.querySelectorAll<HTMLElement>("[data-process-copy]"),
+			)
+		: [];
+	if (!section || !stage || !pinned || !fill || !steps.length || !copies.length) {
+		return;
+	}
 
-mm.add("(max-width: 63.99rem)", clearInline);
-mm.add("(prefers-reduced-motion: reduce)", clearInline);
+	pinned.classList.add("process-live");
+
+	const set = (p: number) => {
+		const index = Math.min(
+			STEP_COUNT - 1,
+			Math.max(0, Math.floor(p * STEP_COUNT)),
+		);
+
+		steps.forEach((el, i) => {
+			const visible = p >= i / STEP_COUNT;
+			el.classList.toggle("is-visible", visible);
+			el.classList.toggle("is-active", i === index);
+			el.setAttribute("aria-hidden", visible ? "false" : "true");
+		});
+
+		copies.forEach((el, i) => {
+			const visible = p >= i / STEP_COUNT;
+			el.classList.toggle("is-visible", visible);
+			el.setAttribute("aria-hidden", visible ? "false" : "true");
+		});
+
+		fill.style.transform = `scaleY(${Math.min(
+			1,
+			Math.max(0, p),
+		).toFixed(4)})`;
+	};
+
+	set(0);
+
+	const trigger = ScrollTrigger.create({
+		trigger: stage,
+		start: "top 72%",
+		end: "bottom 45%",
+		scrub: true,
+		invalidateOnRefresh: true,
+		onUpdate: (self) => set(self.progress),
+	});
+
+	return () => {
+		trigger.kill();
+		clear();
+	};
+});
+
+mm.add("(prefers-reduced-motion: reduce)", clear);

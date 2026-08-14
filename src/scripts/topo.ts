@@ -9,6 +9,33 @@ const PALETTES: Record<"ink", PaletteEntry[]> = {
 	ink: [{ varName: "--color-primary", alpha: BASE_ALPHA }],
 };
 
+interface TopoState {
+	amplitude: number;
+	density: number;
+	speed: number;
+	distortion: number;
+	intensity: number;
+}
+
+const DEFAULT_STATE: TopoState = {
+	amplitude: 1,
+	density: 1,
+	speed: 1,
+	distortion: 1,
+	intensity: 1,
+};
+
+const STATE_KEYS: (keyof TopoState)[] = [
+	"amplitude",
+	"density",
+	"speed",
+	"distortion",
+	"intensity",
+];
+
+const STATE_LERP = 3;
+const STATE_EPSILON = 0.0005;
+
 interface TopoCanvas {
 	canvas: HTMLCanvasElement;
 	ctx: CanvasRenderingContext2D;
@@ -22,6 +49,8 @@ interface TopoCanvas {
 	cursorY: number;
 	targetX: number;
 	targetY: number;
+	state: { current: TopoState; target: TopoState };
+	lastTime: number;
 }
 
 const instances: TopoCanvas[] = [];
@@ -159,11 +188,13 @@ function linePointY(
 	const f = (i + 0.5) / lineCount;
 	const yBase = height * (0.05 + 0.9 * f);
 	const depth = hash01(i * 3.1 + 911);
+	const state = tc.state.current;
 	const amp =
 		height *
 		0.03 *
 		(0.45 + 0.3 * (1 - Math.abs(f - 0.5) * 2)) *
-		(0.8 + depth * 0.4);
+		(0.8 + depth * 0.4) *
+		state.amplitude;
 
 	const rnd = hash01(i);
 	const rnd2 = hash01(i + 137);
@@ -171,8 +202,8 @@ function linePointY(
 
 	const freq1 = (2 * Math.PI * (1.5 + rnd * 3)) / tc.width;
 	const freq2 = (2 * Math.PI * (6 + rnd2 * 8)) / tc.width;
-	const w1 = (0.8 + rnd3 * 0.8) * SPEED;
-	const w2 = -(1.2 + rnd2 * 1.2) * SPEED;
+	const w1 = (0.8 + rnd3 * 0.8) * SPEED * state.speed;
+	const w2 = -(1.2 + rnd2 * 1.2) * SPEED * state.speed;
 	const phase1 = i * 0.9 + rnd * Math.PI * 2;
 	const phase2 = i * 1.7 + rnd2 * Math.PI * 2;
 
@@ -181,7 +212,11 @@ function linePointY(
 		amp *
 			(0.7 * Math.sin(x * freq1 + time * w1 + phase1) +
 				0.3 * Math.sin(x * freq2 + time * w2 + phase2)) +
-		height * 0.012 * (noise1(x * 0.01 + i * 7.3 + time * 0.15) - 0.5) * 2
+		height *
+			0.012 *
+			(noise1(x * 0.01 + i * 7.3 + time * 0.15) - 0.5) *
+			2 *
+			state.distortion
 	);
 }
 
@@ -261,12 +296,15 @@ function drawBaseLines(
 	const width = tc.width;
 
 	const step = Math.max(8, Math.round(width / 120));
-	const lineCount = Math.max(10, Math.round(tc.height / 62));
+	const lineCount = Math.max(
+		10,
+		Math.round((tc.height / 62) * tc.state.current.density),
+	);
 
 	for (let i = 0; i < lineCount; i++) {
 		const depth = hash01(i * 3.1 + 911);
 		setLineStyle(tc, style, depth);
-		ctx.globalAlpha = lineAlpha(depth);
+		ctx.globalAlpha = lineAlpha(depth) * tc.state.current.intensity;
 		traceLine(ctx, tc, i, time, lineCount, step);
 		ctx.stroke();
 	}
@@ -311,6 +349,7 @@ function frame(now: number) {
 		if (!tc.visible || reduced) continue;
 		anyDrawn = true;
 		updateCursor(tc);
+		lerpState(tc, now);
 		draw(tc, now / 1000);
 	}
 
@@ -325,6 +364,17 @@ function ensureLoop() {
 	if (running || reduced) return;
 	running = true;
 	requestAnimationFrame(frame);
+}
+
+function lerpState(tc: TopoCanvas, now: number) {
+	const { current, target } = tc.state;
+	if (!tc.lastTime) tc.lastTime = now;
+	const dt = Math.min(0.1, (now - tc.lastTime) / 1000);
+	tc.lastTime = now;
+	const k = 1 - Math.exp(-STATE_LERP * dt);
+	for (const key of STATE_KEYS) {
+		current[key] += (target[key] - current[key]) * k;
+	}
 }
 
 const io = new IntersectionObserver(
@@ -374,13 +424,18 @@ document
 			palette: PALETTES[mode],
 			width: 0,
 			height: 0,
-			visible: false,
+visible: false,
 			hasCursor: false,
 			infl: false,
 			cursorX: 0,
 			cursorY: 0,
 			targetX: 0,
 			targetY: 0,
+			state: {
+				current: { ...DEFAULT_STATE },
+				target: { ...DEFAULT_STATE },
+			},
+			lastTime: 0,
 		};
 
 		byCanvas.set(canvas, tc);
@@ -393,3 +448,32 @@ document
 		io.observe(canvas);
 		ro.observe(canvas);
 	});
+
+document.addEventListener("topo:state", (event) => {
+	const detail = (event as CustomEvent).detail;
+	if (!detail || typeof detail !== "object") return;
+	const state = detail.state as Partial<TopoState> | undefined;
+	if (!state || typeof state !== "object") return;
+
+	const targetSelector = detail.target as string | undefined;
+	const canvases = targetSelector
+		? Array.from(
+				document.querySelectorAll<HTMLCanvasElement>(targetSelector),
+			)
+		: Array.from(byCanvas.keys());
+
+	let changed = false;
+	for (const canvas of canvases) {
+		const tc = byCanvas.get(canvas);
+		if (!tc) continue;
+		for (const key of STATE_KEYS) {
+			const value = state[key];
+			if (typeof value !== "number" || !Number.isFinite(value)) continue;
+			if (Math.abs(value - tc.state.target[key]) > STATE_EPSILON) {
+				tc.state.target[key] = value;
+				changed = true;
+			}
+		}
+	}
+	if (changed) ensureLoop();
+});

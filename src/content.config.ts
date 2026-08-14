@@ -42,6 +42,7 @@ const process = defineCollection({
   schema: z.object({
     step: z.number(),
     title: z.string(),
+    short: z.string().optional(),
     description: z.string(),
   }),
 });

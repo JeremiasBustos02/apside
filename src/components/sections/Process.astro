@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import SectionTitle from "../ui/SectionTitle.astro";
 import Wave from "../ui/Wave.astro";
-import Blob from "../ui/Blob.astro";
 import Timeline from "../process/Timeline.astro";
 
 const steps = (await getCollection("process")).sort(
@@ -10,30 +9,17 @@ const steps = (await getCollection("process")).sort(
 );
 ---
 
-<section
-	id="proceso"
-	class="relative scroll-mt-24 overflow-hidden bg-white"
->
-	<Blob
-		color="secondary"
-		size={320}
-		class="absolute -left-28 top-1/4 opacity-10"
-		parallax={0.4}
-	/>
-	<Blob
-		color="primary"
-		size={260}
-		class="absolute -right-24 bottom-1/4 opacity-10"
-		parallax={0.6}
-	/>
-
-	<div class="container-apside relative pb-section pt-section">
+<section id="proceso" class="relative scroll-mt-24 bg-white">
+	<div class="container-apside pt-section">
 		<SectionTitle
 			title="Nuestro proceso"
 			subtitle="Un camino claro de la idea al resultado"
 			align="center"
 		/>
-		<div class="relative mt-block">
+	</div>
+
+	<div id="process-stage" class="relative mt-block pb-section">
+		<div class="container-apside">
 			<Timeline steps={steps.map((s) => s.data)} />
 		</div>
 	</div>
